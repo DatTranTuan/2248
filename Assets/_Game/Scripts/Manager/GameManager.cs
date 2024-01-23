@@ -9,10 +9,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int minNum;
     [SerializeField] private int maxNum;
 
+    [SerializeField] private Transform[] points;
+    [SerializeField] private BlockController line;
+
     private IState currentState;
 
     private void Start()
     {
+        line.SetUpLine(points);
+
         for (int i = 0; i < 5; i++)
         {
             for (int j = 0; j < 8; j++)
