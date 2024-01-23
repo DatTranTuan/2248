@@ -9,14 +9,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int minNum;
     [SerializeField] private int maxNum;
 
-    [SerializeField] private Transform[] points;
-    [SerializeField] private BlockController line;
-
     private IState currentState;
 
     private void Start()
     {
-        line.SetUpLine(points);
 
         for (int i = 0; i < 5; i++)
         {
@@ -25,8 +21,9 @@ public class GameManager : MonoBehaviour
                 Block blockTmp = Instantiate(block);
                 blockTmp.transform.position = new Vector2(i, j);
                 int numberType = Random.Range(minNum, maxNum);
-                blockTmp.Number.text = numberSO.listNumber[numberType].number.ToString();
+                blockTmp.NumberText.text = numberSO.listNumber[numberType].number.ToString();
                 blockTmp.GetComponent<SpriteRenderer>().material.color = numberSO.listNumber[numberType].color;
+                blockTmp.Number = numberType;
             }
         }
     }

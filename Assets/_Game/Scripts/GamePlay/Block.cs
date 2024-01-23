@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI number;
+    [SerializeField] private TextMeshProUGUI numberText;
+    [SerializeField] private int number;
 
-    public TextMeshProUGUI Number { get => number; set => number = value; }
+    public TextMeshProUGUI NumberText { get => numberText; set => numberText = value; }
+    public int Number { get => number; set => number = value; }
 }
