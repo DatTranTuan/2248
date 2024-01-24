@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lineRenderer: {fileID: 4209731151361692992}
-  numberSO: {fileID: 11400000, guid: 78e3e022f7c5d7c4ca06f7c0fc134d0f, type: 2}
 --- !u!120 &4209731151361692992
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -68,7 +67,6 @@ LineRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: de66ea3cfa6686747807ed21cf88f4a8, type: 2}
-  - {fileID: 2100000, guid: 96f37b8933b548746b39d8c4cee99807, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -89,9 +87,7 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  m_Positions: []
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1

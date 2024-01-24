@@ -331,9 +331,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 4292411668382916355, guid: bf21411d0196a094eb48f55f0d9b5217, type: 3}
-  numberSO: {fileID: 11400000, guid: 78e3e022f7c5d7c4ca06f7c0fc134d0f, type: 2}
-  minNum: 0
   maxNum: 5
+  minNum: 0
+  numberSO: {fileID: 11400000, guid: 78e3e022f7c5d7c4ca06f7c0fc134d0f, type: 2}
+  lineController: {fileID: 4209731151361692994, guid: 22848da83157c744193f8a5799c19374, type: 3}
+  lineParent: {fileID: 1254273317}
 --- !u!4 &566210801
 Transform:
   m_ObjectHideFlags: 0
@@ -380,53 +382,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1078342708
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1078342710}
-  - component: {fileID: 1078342709}
-  m_Layer: 0
-  m_Name: LineManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1078342709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078342708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f0ff14126f385f488bea449798bad34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numberSO: {fileID: 11400000, guid: 78e3e022f7c5d7c4ca06f7c0fc134d0f, type: 2}
-  lineController: {fileID: 4209731151361692994, guid: 22848da83157c744193f8a5799c19374, type: 3}
-  lineParent: {fileID: 1254273317}
---- !u!4 &1078342710
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078342708}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1185585113
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,7 +423,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1254273317}
   m_Layer: 0
-  m_Name: LineRenderer
+  m_Name: LineParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -481,7 +436,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1254273316}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.5276282, y: 0.7778598, z: 0.23811157}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
