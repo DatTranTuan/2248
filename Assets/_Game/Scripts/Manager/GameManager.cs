@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
             for (int j = 0; j < 8; j++)
             {
                 Block blockTmp = Instantiate(block);
+                blockTmp.IsDrag = false;
                 blockTmp.transform.position = new Vector2(i, j);
                 int numberType = Random.Range(minNum, maxNum);
                 blockTmp.NumberText.text = numberSO.listNumber[numberType].number.ToString();
