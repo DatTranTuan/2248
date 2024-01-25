@@ -7,26 +7,43 @@ public class GameManager : MonoBehaviour
     public Block block;
     public int maxNum;
     public int minNum;
+    public int dem;
     public NumberSO numberSO;
+    [SerializeField] private Block blockPreview;
     [SerializeField] private LineController lineController;
     [SerializeField] private Transform lineParent;
 
+    private Block blockPreviewInstance;
     private Block currentBlock;
     private Block preBlock;
     private LineController line;
-    private int index;
     private int blockCount;
 
     private List<LineController> lineList = new List<LineController>();
     private List<Block> listDeleteBlock = new List<Block>();
 
     private IState currentState;
+    private void Awake()
+    {
+        //tranh viec nguoi choi cham da diem vao man hinh
+        Input.multiTouchEnabled = false;
+        //target frame rate ve 60 fps
+        Application.targetFrameRate = 60;
+        //tranh viec tat man hinh
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
+        //xu tai tho
+        int maxScreenHeight = 1280;
+        float ratio = (float)Screen.currentResolution.width / (float)Screen.currentResolution.height;
+        if (Screen.currentResolution.height > maxScreenHeight)
+        {
+            Screen.SetResolution(Mathf.RoundToInt(ratio * (float)maxScreenHeight), maxScreenHeight, true);
+        }
+    }
     private void Start()
     {
         Init();
         ChangeState(new DrawState());
-        index = 0;
     }
     private void Update()
     {
@@ -65,9 +82,6 @@ public class GameManager : MonoBehaviour
     }
     public void DrawProces()
     {
-        Debug.Log(index);
-
-
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
@@ -84,12 +98,11 @@ public class GameManager : MonoBehaviour
             line.LineRenderer.material.color = hit.collider.gameObject.GetComponent<Renderer>().material.color;
             line.LineRenderer.positionCount = 1;
             line.LineRenderer.SetPosition(0, preBlock.transform.position);
+            dem += numberSO.listNumber[preBlock.Number].number;
         }
 
         if (Input.GetMouseButton(0) && blockCount > 0)
         {
-            //lineRenderer.enabled = true;
-
             line.LineRenderer.positionCount = 2;
             line.LineRenderer.SetPosition(1, mousePosition);
 
@@ -112,6 +125,8 @@ public class GameManager : MonoBehaviour
                         currentBlock.IsDrag = true;
                         preBlock = currentBlock;
                         listDeleteBlock.Add(preBlock);
+                        dem += numberSO.listNumber[preBlock.Number].number;
+                        if (blockCount == 2) blockPreviewInstance = Instantiate(blockPreview);
                     }
                     else
                     {
@@ -127,6 +142,8 @@ public class GameManager : MonoBehaviour
                             currentBlock.IsDrag = true;
                             preBlock = currentBlock;
                             listDeleteBlock.Add(preBlock);
+                            dem += numberSO.listNumber[preBlock.Number].number;
+                            if (blockCount == 2) blockPreviewInstance = Instantiate(blockPreview);
                         }
                     }
                 }
@@ -135,7 +152,7 @@ public class GameManager : MonoBehaviour
                     if (lineList.Count >= 2 && currentBlock.IsDrag == true && Mathf.Abs(line.LineRenderer.GetPosition(0).x - hit.transform.position.x) < 1.9
                         && Mathf.Abs(line.LineRenderer.GetPosition(0).y - hit.transform.position.y) < 1.9 && Vector3.Distance(hit.transform.position, lineList[lineList.Count - 2].LineRenderer.GetPosition(0)) < 0.1)
                     {
-                        Debug.Log(11);
+                        dem -= numberSO.listNumber[listDeleteBlock[ listDeleteBlock.Count - 1].Number].number;
                         Destroy(lineList[lineList.Count - 1].gameObject);
                         Destroy(lineList[lineList.Count - 2].gameObject);
                         listDeleteBlock.RemoveAt(listDeleteBlock.Count - 1);
@@ -149,7 +166,13 @@ public class GameManager : MonoBehaviour
                         line.LineRenderer.material.color = hit.collider.gameObject.GetComponent<Renderer>().material.color;
                         preBlock.IsDrag = false;
                         preBlock = currentBlock;
+                        if (blockCount == 1) Destroy(blockPreviewInstance.gameObject); ;
                     }
+                }
+                if (blockCount >= 2)
+                {
+                    blockPreviewInstance.NumberText.text = numberSO.listNumber[ScoreCaculate()].number.ToString();
+                    blockPreviewInstance.GetComponent<SpriteRenderer>().material.color = numberSO.listNumber[ScoreCaculate()].color;
                 }
             }
         }
@@ -158,28 +181,13 @@ public class GameManager : MonoBehaviour
         {
             if (blockCount > 0)
             {
-
-                //if (blockCount >= 2 && preBlock.GetComponent<Block>().Number == currentBlock.GetComponent<Block>().Number)
-                //{
-                //    if (index == 4)
-                //    {
-                //        index -= 1;
-                //        Debug.Log("inside");
-                //        listDeleteBlock[blockCount - 1].Number = index;
-                //        listDeleteBlock[blockCount - 1].NumberText.text = numberSO.listNumber[index].number.ToString();
-                //        listDeleteBlock[blockCount - 1].GetComponent<SpriteRenderer>().material.color = numberSO.listNumber[index].color;
-                //    }
-                //    else
-                //    {
-                //        listDeleteBlock[blockCount - 1].Number = index;
-                //        listDeleteBlock[blockCount - 1].NumberText.text = numberSO.listNumber[index].number.ToString();
-                //        listDeleteBlock[blockCount - 1].GetComponent<SpriteRenderer>().material.color = numberSO.listNumber[index].color;
-                //    }
-                //    index = 0;
-                //}
-
-                listDeleteBlock[blockCount -1].IsDrag = false;
-
+                if (blockCount >= 1)
+                {
+                    listDeleteBlock[blockCount -1].IsDrag = false;
+                    listDeleteBlock[blockCount -1].Number= ScoreCaculate();
+                    listDeleteBlock[blockCount -1].NumberText.text= numberSO.listNumber[ScoreCaculate()].number.ToString();
+                    listDeleteBlock[blockCount -1].GetComponent<SpriteRenderer>().material.color = numberSO.listNumber[ScoreCaculate()].color;
+                }
                 for (int i = lineList.Count - 1; i >= 0; i--)
                 {
                     Destroy(lineList[i].gameObject);
@@ -190,6 +198,7 @@ public class GameManager : MonoBehaviour
                         listDeleteBlock.RemoveAt(i);
                     }
                 }
+                if(blockPreviewInstance!= null) Destroy(blockPreviewInstance.gameObject);
             }
             listDeleteBlock.Clear();
             lineList.Clear();
@@ -197,5 +206,16 @@ public class GameManager : MonoBehaviour
             if(blockCount> 0) ChangeState(new DropState());
             blockCount = 0;
         }
+    }
+    private int ScoreCaculate()
+    {
+        int ScoreTMP = 4;
+        int demtmp = 1;
+        while(ScoreTMP < dem)
+        {
+            ScoreTMP *= 2;
+            demtmp++;
+        }
+        return demtmp;
     }
 }

@@ -58,7 +58,7 @@ public class DropState : IState
                 Block block = listBlock[i][j];
                 if (block.IsExactLocation== false)
                 {
-                    block.transform.position = Vector2.MoveTowards(block.transform.position, block.ExactLocation, 0.07f);
+                    block.transform.position = Vector2.MoveTowards(block.transform.position, block.ExactLocation, 0.2f);
                     if (block.transform.position.y- block.ExactLocation.y > 0.01) isCompleted= false;
                 }
             }
