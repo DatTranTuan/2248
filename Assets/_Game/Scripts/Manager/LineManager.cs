@@ -17,8 +17,4 @@ public class LineManager : MonoBehaviour
     private List<LineController> lineList = new List<LineController>();
     private List<Block> listDeleteBlock= new List<Block>();
 
-    private void Update()
-    {
-        
-    }
 }

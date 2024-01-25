@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     {
         Init();
         ChangeState(new DrawState());
+        index = 0;
     }
     private void Update()
     {
@@ -64,6 +65,9 @@ public class GameManager : MonoBehaviour
     }
     public void DrawProces()
     {
+        Debug.Log(index);
+
+
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
@@ -72,7 +76,7 @@ public class GameManager : MonoBehaviour
             blockCount++;
             line = Instantiate(lineController, lineParent);
             lineList.Add(line);
-            index = hit.collider.GetComponent<Block>().Number;
+            //index = hit.collider.GetComponent<Block>().Number;
             //line.LineRenderer.enabled = true;
             preBlock = hit.collider.GetComponent<Block>();
             listDeleteBlock.Add(preBlock);
@@ -154,6 +158,28 @@ public class GameManager : MonoBehaviour
         {
             if (blockCount > 0)
             {
+
+                //if (blockCount >= 2 && preBlock.GetComponent<Block>().Number == currentBlock.GetComponent<Block>().Number)
+                //{
+                //    if (index == 4)
+                //    {
+                //        index -= 1;
+                //        Debug.Log("inside");
+                //        listDeleteBlock[blockCount - 1].Number = index;
+                //        listDeleteBlock[blockCount - 1].NumberText.text = numberSO.listNumber[index].number.ToString();
+                //        listDeleteBlock[blockCount - 1].GetComponent<SpriteRenderer>().material.color = numberSO.listNumber[index].color;
+                //    }
+                //    else
+                //    {
+                //        listDeleteBlock[blockCount - 1].Number = index;
+                //        listDeleteBlock[blockCount - 1].NumberText.text = numberSO.listNumber[index].number.ToString();
+                //        listDeleteBlock[blockCount - 1].GetComponent<SpriteRenderer>().material.color = numberSO.listNumber[index].color;
+                //    }
+                //    index = 0;
+                //}
+
+                listDeleteBlock[blockCount -1].IsDrag = false;
+
                 for (int i = lineList.Count - 1; i >= 0; i--)
                 {
                     Destroy(lineList[i].gameObject);
