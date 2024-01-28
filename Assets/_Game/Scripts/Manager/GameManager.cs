@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Block blockPreview;
     [SerializeField] private LineController lineController;
     [SerializeField] private Transform lineParent;
+    [SerializeField] private Transform blockParent;
 
     private Block blockPreviewInstance;
     private Block currentBlock;
@@ -58,7 +59,7 @@ public class GameManager : MonoBehaviour
         {
             for (int j = 0; j < 8; j++)
             {
-                Block blockTmp = Instantiate(block);
+                Block blockTmp = Instantiate(block, blockParent);
                 blockTmp.IsDrag = false;
                 blockTmp.transform.position = new Vector2(i, j);
                 int numberType = Random.Range(minNum, maxNum);
