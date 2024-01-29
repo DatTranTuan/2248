@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<UIManager>
 {
     [SerializeField] private GameObject gamePlay;
 
@@ -13,6 +14,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject pauseCanvas;
 
     [SerializeField] private GameObject settingCanvas;
+    [SerializeField] private GameObject shopCanvas;
 
     [SerializeField] private Button playBtn;
     [SerializeField] private Button pauseBtn;
@@ -23,6 +25,10 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private Button settingBtn;
     [SerializeField] private Button backSettingBtn;
+    [SerializeField] private Button shopBtn;
+    [SerializeField] private Button backShopBtn;
+
+    [SerializeField] private TextMeshProUGUI totalScoreText;
 
     private void Start()
     {
@@ -31,6 +37,8 @@ public class UIManager : MonoBehaviour
         playBtn.onClick.AddListener(OnClickPlayBtn);
         settingBtn.onClick.AddListener(OnClickSettingBtn);
         backSettingBtn.onClick.AddListener(OnClickBackSetting);
+        shopBtn.onClick.AddListener(OnClickShopBtn);
+        backShopBtn.onClick.AddListener(OnClickBackShopBtn);
 
         pauseBtn.onClick.AddListener(OnClickPauseBtn);
         homeBtn.onClick.AddListener(OnClickHomeBtn);
@@ -41,6 +49,10 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0f;
     }
 
+    public void UpdateTotalScore()
+    {
+        totalScoreText.text = GameManager.Instance.TotalScore.ToString();
+    }
     public void OnClickPlayBtn()
     {
         gamePlay.SetActive(true);
@@ -59,6 +71,18 @@ public class UIManager : MonoBehaviour
     {
         homeCanvas.SetActive(true);
         settingCanvas.SetActive(false);
+    }
+
+    public void OnClickShopBtn()
+    {
+        homeCanvas.SetActive(false);
+        shopCanvas.SetActive(true);
+    }
+
+    public void OnClickBackShopBtn()
+    {
+        homeCanvas.SetActive(true);
+        shopCanvas.SetActive(false);
     }
 
     public void OnClickPauseBtn()

@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     public Block block;
     public int maxNum;
     public int minNum;
     public int dem;
     public NumberSO numberSO;
+
+    public Transform blockParent;
+
     [SerializeField] private Block blockPreview;
     [SerializeField] private LineController lineController;
     [SerializeField] private Transform lineParent;
-    [SerializeField] private Transform blockParent;
 
     private Block blockPreviewInstance;
     private Block currentBlock;
@@ -24,8 +26,15 @@ public class GameManager : MonoBehaviour
     private List<Block> listDeleteBlock = new List<Block>();
 
     private IState currentState;
+
+    private int totalScore;
+
+    public int TotalScore { get => totalScore; set => totalScore = value; }
+
     private void Awake()
     {
+        TotalScore = 0;
+
         //tranh viec nguoi choi cham da diem vao man hinh
         Input.multiTouchEnabled = false;
         //target frame rate ve 60 fps
@@ -172,6 +181,7 @@ public class GameManager : MonoBehaviour
                 }
                 if (blockCount >= 2)
                 {
+                    Debug.Log("inside");
                     blockPreviewInstance.NumberText.text = numberSO.listNumber[ScoreCaculate()].number.ToString();
                     blockPreviewInstance.GetComponent<SpriteRenderer>().material.color = numberSO.listNumber[ScoreCaculate()].color;
                 }
@@ -182,12 +192,14 @@ public class GameManager : MonoBehaviour
         {
             if (blockCount > 0)
             {
-                if (blockCount >= 1)
+                listDeleteBlock[blockCount -1].IsDrag = false;
+                if (blockCount >= 2)
                 {
-                    listDeleteBlock[blockCount -1].IsDrag = false;
                     listDeleteBlock[blockCount -1].Number= ScoreCaculate();
                     listDeleteBlock[blockCount -1].NumberText.text= numberSO.listNumber[ScoreCaculate()].number.ToString();
                     listDeleteBlock[blockCount -1].GetComponent<SpriteRenderer>().material.color = numberSO.listNumber[ScoreCaculate()].color;
+                    TotalScore += numberSO.listNumber[ScoreCaculate()].number;
+                    UIManager.Instance.UpdateTotalScore();
                 }
                 for (int i = lineList.Count - 1; i >= 0; i--)
                 {
