@@ -32,17 +32,22 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Button backThemeBtn;
 
     [SerializeField] private TextMeshProUGUI totalScoreText;
+    [SerializeField] private TextMeshProUGUI curentHighScoreTextInPlay;
+    [SerializeField] private TextMeshProUGUI curentHighScoreTextInHome;
+    [SerializeField] private TextMeshProUGUI currentDynamonTextInPlay;
+    [SerializeField] private TextMeshProUGUI currentDynamonTextInHome;
 
     private void Start()
     {
         gamePlay.SetActive(false);
-
+        UpdateScoreDyamon();
         playBtn.onClick.AddListener(OnClickPlayBtn);
         settingBtn.onClick.AddListener(OnClickSettingBtn);
         backSettingBtn.onClick.AddListener(OnClickBackSetting);
         shopBtn.onClick.AddListener(OnClickShopBtn);
         backShopBtn.onClick.AddListener(OnClickBackShopBtn);
-
+        themeBtn.onClick.AddListener(OnClickThemeBtn);
+        backThemeBtn.onClick.AddListener(OnClickBackThemeBtn);  
         pauseBtn.onClick.AddListener(OnClickPauseBtn);
         homeBtn.onClick.AddListener(OnClickHomeBtn);
         closePauseBtn.onClick.AddListener(OnClickResumeBtn);
@@ -51,10 +56,20 @@ public class UIManager : Singleton<UIManager>
 
         Time.timeScale = 0f;
     }
-
+    public void UpdateScoreDyamon()
+    {
+        curentHighScoreTextInPlay.text = DataManager.Instance.dataDynamic.CurrentHighScore.ToString();
+        curentHighScoreTextInHome.text = DataManager.Instance.dataDynamic.CurrentHighScore.ToString();
+        currentDynamonTextInPlay.text = DataManager.Instance.dataDynamic.CurrentDynament.ToString();
+        currentDynamonTextInHome.text = DataManager.Instance.dataDynamic.CurrentDynament.ToString();
+    }
     public void UpdateTotalScore()
     {
         totalScoreText.text = GameManager.Instance.TotalScore.ToString();
+        curentHighScoreTextInPlay.text = DataManager.Instance.dataDynamic.CurrentHighScore.ToString();
+        curentHighScoreTextInHome.text = DataManager.Instance.dataDynamic.CurrentHighScore.ToString();
+        currentDynamonTextInPlay.text = DataManager.Instance.dataDynamic.CurrentDynament.ToString();
+        currentDynamonTextInHome.text = DataManager.Instance.dataDynamic.CurrentDynament.ToString();
     }
     public void OnClickPlayBtn()
     {

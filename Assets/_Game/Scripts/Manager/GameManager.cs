@@ -199,6 +199,7 @@ public class GameManager : Singleton<GameManager>
                     listDeleteBlock[blockCount -1].NumberText.text= numberSO.listNumber[ScoreCaculate()].number.ToString();
                     listDeleteBlock[blockCount -1].GetComponent<SpriteRenderer>().material.color = numberSO.listNumber[ScoreCaculate()].color;
                     TotalScore += numberSO.listNumber[ScoreCaculate()].number;
+                    if (totalScore > DataManager.Instance.dataDynamic.CurrentHighScore) DataManager.Instance.dataDynamic.CurrentHighScore = totalScore;
                     UIManager.Instance.UpdateTotalScore();
                 }
                 for (int i = lineList.Count - 1; i >= 0; i--)
