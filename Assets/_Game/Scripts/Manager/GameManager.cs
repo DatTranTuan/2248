@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
+using UnityEngine.UI;
 public class GameManager : Singleton<GameManager>
 {
     public Block block;
@@ -15,6 +16,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private Block blockPreview;
     [SerializeField] private LineController lineController;
     [SerializeField] private Transform lineParent;
+    [SerializeField] private GameObject popUpScore;
+    [SerializeField] private Transform popUpScoreParent;
 
     private Block blockPreviewInstance;
     private Block currentBlock;
@@ -201,6 +204,9 @@ public class GameManager : Singleton<GameManager>
                     TotalScore += numberSO.listNumber[ScoreCaculate()].number;
                     if (totalScore > DataManager.Instance.dataDynamic.CurrentHighScore) DataManager.Instance.dataDynamic.CurrentHighScore = totalScore;
                     UIManager.Instance.UpdateTotalScore();
+                    PopUpIncScore(numberSO.listNumber[ScoreCaculate()].number);
+
+
                 }
                 for (int i = lineList.Count - 1; i >= 0; i--)
                 {
@@ -220,6 +226,12 @@ public class GameManager : Singleton<GameManager>
             if(blockCount> 0) ChangeState(new DropState());
             blockCount = 0;
         }
+    }
+    private void PopUpIncScore(int score)
+    {
+        GameObject t= Instantiate(popUpScore, popUpScoreParent);
+        t.transform.localPosition = new Vector3(125, 35, 0);
+        t.GetComponent<TextMeshProUGUI>().text = "+" + score.ToString();
     }
     private int ScoreCaculate()
     {

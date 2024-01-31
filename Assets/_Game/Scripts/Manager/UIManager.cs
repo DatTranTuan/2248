@@ -59,7 +59,7 @@ public class UIManager : Singleton<UIManager>
     public void UpdateScoreDyamon()
     {
         curentHighScoreTextInPlay.text = DataManager.Instance.dataDynamic.CurrentHighScore.ToString();
-        curentHighScoreTextInHome.text = DataManager.Instance.dataDynamic.CurrentHighScore.ToString();
+        curentHighScoreTextInHome.text = DataManager.Instance.dataDynamic.CurrentHighScore  .ToString();
         currentDynamonTextInPlay.text = DataManager.Instance.dataDynamic.CurrentDynament.ToString();
         currentDynamonTextInHome.text = DataManager.Instance.dataDynamic.CurrentDynament.ToString();
     }
@@ -137,6 +137,7 @@ public class UIManager : Singleton<UIManager>
 
     public void OnClickRestartBtn ()
     {
+        DataManager.Instance.SetPlayerpref();
         SceneManager.LoadScene("SampleScene");
     }
 }
