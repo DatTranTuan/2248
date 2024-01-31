@@ -12,6 +12,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject homeCanvas;
     [SerializeField] private GameObject playCanvas;
     [SerializeField] private GameObject pauseCanvas;
+    [SerializeField] private GameObject themeCanvas;
 
     [SerializeField] private GameObject settingCanvas;
     [SerializeField] private GameObject shopCanvas;
@@ -27,6 +28,8 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Button backSettingBtn;
     [SerializeField] private Button shopBtn;
     [SerializeField] private Button backShopBtn;
+    [SerializeField] private Button themeBtn;
+    [SerializeField] private Button backThemeBtn;
 
     [SerializeField] private TextMeshProUGUI totalScoreText;
 
@@ -83,6 +86,18 @@ public class UIManager : Singleton<UIManager>
     {
         homeCanvas.SetActive(true);
         shopCanvas.SetActive(false);
+    }
+
+    public void OnClickThemeBtn()
+    {
+        homeCanvas.SetActive(false);
+        themeCanvas.SetActive(true);
+    }
+
+    public void OnClickBackThemeBtn()
+    {
+        homeCanvas.SetActive(true);
+        themeCanvas.SetActive(false);
     }
 
     public void OnClickPauseBtn()
