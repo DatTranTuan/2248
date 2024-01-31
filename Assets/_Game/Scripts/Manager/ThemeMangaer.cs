@@ -32,24 +32,44 @@ public class ThemeMangaer : Singleton<ThemeMangaer>
         homeCanvas.GetComponent<Image>().sprite = sprite1;
         playCanvas.GetComponent<Image>().sprite = sprite1;
         playCanvas.GetComponent<Image>().sprite = sprite1;
+
+        w1Btn.GetComponent<Image>().color = Color.green;
+        w2Btn.GetComponent<Image>().color = Color.white;
+        w3Btn.GetComponent<Image>().color = Color.white;
+        w4Btn.GetComponent<Image>().color = Color.white;
     }
     public void OnClickW2Btn()
     {
         homeCanvas.GetComponent<Image>().sprite = sprite2;
         playCanvas.GetComponent<Image>().sprite = sprite2;
         pauseCanvas.GetComponent<Image>().sprite = sprite2;
+
+        w1Btn.GetComponent<Image>().color = Color.white;
+        w2Btn.GetComponent<Image>().color = Color.green;
+        w3Btn.GetComponent<Image>().color = Color.white;
+        w4Btn.GetComponent<Image>().color = Color.white;
     }
     public void OnClickW3Btn()
     {
         homeCanvas.GetComponent<Image>().sprite = sprite3;
         playCanvas.GetComponent<Image>().sprite = sprite3;
         pauseCanvas.GetComponent<Image>().sprite = sprite3;
+
+        w1Btn.GetComponent<Image>().color = Color.white;
+        w2Btn.GetComponent<Image>().color = Color.white;
+        w3Btn.GetComponent<Image>().color = Color.green;
+        w4Btn.GetComponent<Image>().color = Color.white;
     }
     public void OnClickW4Btn()
     {
         homeCanvas.GetComponent<Image>().sprite = sprite4;
         playCanvas.GetComponent<Image>().sprite = sprite4;
         pauseCanvas.GetComponent<Image>().sprite = sprite4;
+
+        w1Btn.GetComponent<Image>().color = Color.white;
+        w2Btn.GetComponent<Image>().color = Color.white;
+        w3Btn.GetComponent<Image>().color = Color.white;
+        w4Btn.GetComponent<Image>().color = Color.green;
     }
 
 }
