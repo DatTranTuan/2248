@@ -10,14 +10,17 @@ public class GameManager : Singleton<GameManager>
     public int minNum;
     public int dem;
     public NumberSO numberSO;
-
+    public RectTransform targetRectTransform;
+    public Camera mainCamera;
     public Transform blockParent;
 
     [SerializeField] private Block blockPreview;
     [SerializeField] private LineController lineController;
     [SerializeField] private Transform lineParent;
     [SerializeField] private GameObject popUpScore;
+    [SerializeField] private GameObject popUpCombo;
     [SerializeField] private Transform popUpScoreParent;
+    [SerializeField] private Transform popUpIncDyamonParent;
 
     private Block blockPreviewInstance;
     private Block currentBlock;
@@ -198,15 +201,18 @@ public class GameManager : Singleton<GameManager>
                 listDeleteBlock[blockCount -1].IsDrag = false;
                 if (blockCount >= 2)
                 {
+                    
                     listDeleteBlock[blockCount -1].Number= ScoreCaculate();
+                    if(listDeleteBlock[blockCount - 1].Number> DataManager.Instance.dataDynamic.CurrentHighBlock)
+                    {
+                        DataManager.Instance.dataDynamic.CurrentHighBlock = listDeleteBlock[blockCount - 1].Number;
+                    }
                     listDeleteBlock[blockCount -1].NumberText.text= numberSO.listNumber[ScoreCaculate()].number.ToString();
                     listDeleteBlock[blockCount -1].GetComponent<SpriteRenderer>().material.color = numberSO.listNumber[ScoreCaculate()].color;
                     TotalScore += numberSO.listNumber[ScoreCaculate()].number;
                     if (totalScore > DataManager.Instance.dataDynamic.CurrentHighScore) DataManager.Instance.dataDynamic.CurrentHighScore = totalScore;
                     UIManager.Instance.UpdateTotalScore();
-                    PopUpIncScore(numberSO.listNumber[ScoreCaculate()].number);
-
-
+                    PopUpIncScore(numberSO.listNumber[ScoreCaculate()].number, blockCount, listDeleteBlock[blockCount - 1].transform);
                 }
                 for (int i = lineList.Count - 1; i >= 0; i--)
                 {
@@ -227,8 +233,27 @@ public class GameManager : Singleton<GameManager>
             blockCount = 0;
         }
     }
-    private void PopUpIncScore(int score)
+    public Vector2 ConvertToRectTransformSpace(Vector2 screenPosition)
     {
+        Vector3 rectTransformWorldPos = targetRectTransform.position;
+        Vector3 worldPosition = mainCamera.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, 0f));
+        Vector3 localPosition = targetRectTransform.InverseTransformPoint(worldPosition);
+        return new Vector2(localPosition.x, localPosition.y);
+    }
+    private void PopUpIncScore(int score, int count, Transform currentBlock)
+    {
+        if(count>=6)
+        {
+            
+            GameObject x = Instantiate(popUpCombo);
+            x.GetComponentInChildren<Transform>().position = ConvertToRectTransformSpace(currentBlock.position);
+            x.GetComponentInChildren<TextMeshProUGUI>().text = "Combo X" + count;
+            GameObject y = Instantiate(popUpScore, popUpIncDyamonParent);
+            y.transform.localPosition = new Vector3(-129.66f, 730, 0);
+            y.GetComponent<TextMeshProUGUI>().text = "+1" ;
+            DataManager.Instance.dataDynamic.CurrentDynament++;
+            UIManager.Instance.UpdateScoreDyamon();
+        }
         GameObject t= Instantiate(popUpScore, popUpScoreParent);
         t.transform.localPosition = new Vector3(125, 35, 0);
         t.GetComponent<TextMeshProUGUI>().text = "+" + score.ToString();

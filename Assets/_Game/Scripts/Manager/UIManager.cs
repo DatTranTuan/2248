@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class UIManager : Singleton<UIManager>
 {
     [SerializeField] private GameObject gamePlay;
-
+    [SerializeField] private Block highBlock;
     [SerializeField] private GameObject homeCanvas;
     [SerializeField] private GameObject playCanvas;
     [SerializeField] private GameObject pauseCanvas;
@@ -41,6 +41,7 @@ public class UIManager : Singleton<UIManager>
     {
         gamePlay.SetActive(false);
         UpdateScoreDyamon();
+        UpdateHighBlock();
         playBtn.onClick.AddListener(OnClickPlayBtn);
         settingBtn.onClick.AddListener(OnClickSettingBtn);
         backSettingBtn.onClick.AddListener(OnClickBackSetting);
@@ -56,6 +57,11 @@ public class UIManager : Singleton<UIManager>
 
         Time.timeScale = 0f;
     }
+    public void UpdateHighBlock()
+    {
+        highBlock.NumberText.text = GameManager.Instance.numberSO.listNumber[DataManager.Instance.dataDynamic.CurrentHighBlock].number.ToString();
+        highBlock.GetComponent<Image>().color = GameManager.Instance.numberSO.listNumber[DataManager.Instance.dataDynamic.CurrentHighBlock].color;
+    } 
     public void UpdateScoreDyamon()
     {
         curentHighScoreTextInPlay.text = DataManager.Instance.dataDynamic.CurrentHighScore.ToString();
@@ -126,6 +132,7 @@ public class UIManager : Singleton<UIManager>
     {
         homeCanvas.SetActive(true);
         pauseCanvas.SetActive(false);
+        UpdateHighBlock();
     }
 
     public void OnClickResumeBtn()

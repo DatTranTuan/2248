@@ -14,6 +14,7 @@ public class DataManager : Singleton<DataManager>
             dataDynamic = new DataDynamic();
             dataDynamic.CurrentDynament = 0;
             dataDynamic.CurrentHighScore = 0;
+            dataDynamic.CurrentHighBlock = 0;
             SetPlayerpref();
         }
     }
@@ -44,4 +45,5 @@ public class DataDynamic
 {
     public int CurrentDynament;
     public int CurrentHighScore;
+    public int CurrentHighBlock;
 }
