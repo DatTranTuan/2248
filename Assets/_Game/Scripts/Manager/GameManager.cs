@@ -13,6 +13,9 @@ public class GameManager : Singleton<GameManager>
     public RectTransform targetRectTransform;
     public Camera mainCamera;
     public Transform blockParent;
+    public GameObject outLine;
+    public GameObject hammer;
+    public GameObject hammerAnim;
 
     [SerializeField] private Block blockPreview;
     [SerializeField] private LineController lineController;
@@ -27,7 +30,6 @@ public class GameManager : Singleton<GameManager>
     private Block preBlock;
     private LineController line;
     private int blockCount;
-
     private List<LineController> lineList = new List<LineController>();
     private List<Block> listDeleteBlock = new List<Block>();
 
@@ -249,7 +251,7 @@ public class GameManager : Singleton<GameManager>
             x.GetComponentInChildren<Transform>().position = ConvertToRectTransformSpace(currentBlock.position);
             x.GetComponentInChildren<TextMeshProUGUI>().text = "Combo X" + count;
             GameObject y = Instantiate(popUpScore, popUpIncDyamonParent);
-            y.transform.localPosition = new Vector3(-129.66f, 730, 0);
+            y.transform.localPosition = new Vector3(60, 87 , 0);
             y.GetComponent<TextMeshProUGUI>().text = "+1" ;
             DataManager.Instance.dataDynamic.CurrentDynament++;
             UIManager.Instance.UpdateScoreDyamon();
