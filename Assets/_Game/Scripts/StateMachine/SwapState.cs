@@ -58,7 +58,7 @@ public class SwapState : IState
             bool check = true;
             check= Move(trans1, length1, startpoint1, endPoint1, gM);
             check= Move(trans2, length2, startpoint2, endPoint2, gM);
-            if (check) gM.ChangeState(new DrawState());
+            if (check) gM.ChangeState(new DropState());
         }
     }
 

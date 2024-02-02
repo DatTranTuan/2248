@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameManager : Singleton<GameManager>
 {
     public Block block;
+    public int gameState;
     public int maxNum;
     public int minNum;
     public int dem;
@@ -41,6 +42,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Awake()
     {
+        gameState = 1;
         TotalScore = 0;
 
         //tranh viec nguoi choi cham da diem vao man hinh
@@ -189,7 +191,6 @@ public class GameManager : Singleton<GameManager>
                 }
                 if (blockCount >= 2)
                 {
-                    Debug.Log("inside");
                     blockPreviewInstance.NumberText.text = numberSO.listNumber[ScoreCaculate()].number.ToString();
                     blockPreviewInstance.GetComponent<SpriteRenderer>().material.color = numberSO.listNumber[ScoreCaculate()].color;
                 }
