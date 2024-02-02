@@ -48,7 +48,7 @@ public class UIManager : Singleton<UIManager>
         shopBtn.onClick.AddListener(OnClickShopBtn);
         backShopBtn.onClick.AddListener(OnClickBackShopBtn);
         themeBtn.onClick.AddListener(OnClickThemeBtn);
-        backThemeBtn.onClick.AddListener(OnClickBackThemeBtn);  
+        backThemeBtn.onClick.AddListener(OnClickBackThemeBtn);
         pauseBtn.onClick.AddListener(OnClickPauseBtn);
         homeBtn.onClick.AddListener(OnClickHomeBtn);
         closePauseBtn.onClick.AddListener(OnClickResumeBtn);
@@ -61,13 +61,14 @@ public class UIManager : Singleton<UIManager>
     {
         highBlock.NumberText.text = GameManager.Instance.numberSO.listNumber[DataManager.Instance.dataDynamic.CurrentHighBlock].number.ToString();
         highBlock.GetComponent<Image>().color = GameManager.Instance.numberSO.listNumber[DataManager.Instance.dataDynamic.CurrentHighBlock].color;
-    } 
+    }
     public void UpdateScoreDyamon()
     {
         curentHighScoreTextInPlay.text = DataManager.Instance.dataDynamic.CurrentHighScore.ToString();
-        curentHighScoreTextInHome.text = DataManager.Instance.dataDynamic.CurrentHighScore  .ToString();
+        curentHighScoreTextInHome.text = DataManager.Instance.dataDynamic.CurrentHighScore.ToString();
         currentDynamonTextInPlay.text = DataManager.Instance.dataDynamic.CurrentDynament.ToString();
         currentDynamonTextInHome.text = DataManager.Instance.dataDynamic.CurrentDynament.ToString();
+        ShopManager.Instance.DiamondShopText.text = DataManager.Instance.dataDynamic.CurrentDynament.ToString();
     }
     public void UpdateTotalScore()
     {
@@ -142,7 +143,7 @@ public class UIManager : Singleton<UIManager>
         pauseCanvas.SetActive(false);
     }
 
-    public void OnClickRestartBtn ()
+    public void OnClickRestartBtn()
     {
         DataManager.Instance.SetPlayerpref();
         SceneManager.LoadScene("SampleScene");
