@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2048854892640344429}
   - component: {fileID: 2048854892640344426}
   - component: {fileID: 4292411668382916355}
-  - component: {fileID: 3105338845098909867}
   m_Layer: 0
   m_Name: block
   m_TagString: Untagged
@@ -126,25 +125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a988a727c5cbe3c4ca132ea362defed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 3105338845098909867}
   numberText: {fileID: 2048854892686627901}
   number: 0
---- !u!111 &3105338845098909867
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2048854892640344427}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations:
-  - {fileID: 7400000, guid: 3477ebda5b5684b40be527204d766eb4, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!1 &2048854892686627899
 GameObject:
   m_ObjectHideFlags: 0
