@@ -6,6 +6,7 @@ public class DrawState : IState
 {
     public void OnEnter(GameManager gM)
     {
+        gM.gameState = 1;
         gM.dem = 0;
     }
 
@@ -16,5 +17,6 @@ public class DrawState : IState
 
     public void OnExit(GameManager gM)
     {
+        gM.gameState = 0;
     }
 }
