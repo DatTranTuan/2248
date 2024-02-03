@@ -2,19 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DrawState : IState
+
+public class GopState : IState
 {
     public void OnEnter(GameManager gM)
     {
-        gM.dem = 0;
+        throw new System.NotImplementedException();
     }
 
     public void OnExecute(GameManager gM)
     {
-        gM.DrawProces();
+        throw new System.NotImplementedException();
     }
 
     public void OnExit(GameManager gM)
     {
+        throw new System.NotImplementedException();
     }
 }
