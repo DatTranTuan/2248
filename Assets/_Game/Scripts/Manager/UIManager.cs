@@ -72,16 +72,22 @@ public class UIManager : Singleton<UIManager>
     }
     private void OnClickHammerBtn()
     {
-        GameManager.Instance.ChangeState(new HammerState());
-        hammerCanvas.SetActive(true);
-        bottonButtons.SetActive(false);
+        if (GameManager.Instance.gameState == 1)
+        {
+            GameManager.Instance.ChangeState(new HammerState());
+            hammerCanvas.SetActive(true);
+            bottonButtons.SetActive(false);
+        }
     }
 
     private void OnClickSwapBtn()
     {
-        GameManager.Instance.ChangeState(new SwapState());
-        swapCanvas.SetActive(true);
-        bottonButtons.SetActive(false);
+        if (GameManager.Instance.gameState == 1)
+        {
+            GameManager.Instance.ChangeState(new SwapState());
+            swapCanvas.SetActive(true);
+            bottonButtons.SetActive(false);
+        }
     }
 
     public void UpdateHighBlock()

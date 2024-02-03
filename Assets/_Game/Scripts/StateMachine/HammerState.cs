@@ -76,8 +76,8 @@ public class HammerState : IState
 
     public void OnExit(GameManager gM)
     {
-        UIManager.Instance.TurnOnBottonButtons();
         GameManager.Destroy(hammerAnim);
+        UIManager.Instance.TurnOnBottonButtons();
     }
     bool Move(Transform tr, float length, Vector3 startPosition, Vector3 endPosition)
     {
