@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class ShopManager : Singleton<ShopManager>
 {
+    [SerializeField] private GameObject decisionPanel;
+    [SerializeField] private Button confirmBtn;
+    [SerializeField] private Button escBtn;
+
     [SerializeField] private Button ad120Btn;
     [SerializeField] private Button m1KBtn;
     [SerializeField] private Button m3KBtn;
@@ -15,10 +19,15 @@ public class ShopManager : Singleton<ShopManager>
 
     [SerializeField] private TextMeshProUGUI diamondShopText;
 
+    private int index;
+
     public TextMeshProUGUI DiamondShopText { get => diamondShopText; set => diamondShopText = value; }
 
     private void Start()
     {
+        confirmBtn.onClick.AddListener(OnClickConfirmBtn);
+        escBtn.onClick.AddListener(OnClickCloseDesPanel);
+
         ad120Btn.onClick.AddListener(OnClickAd120Btn);
         m1KBtn.onClick.AddListener(OnClickAdm1KBtn);
         m3KBtn.onClick.AddListener(OnClickAdm3KBtn);
@@ -29,37 +38,49 @@ public class ShopManager : Singleton<ShopManager>
 
     public void OnClickAd120Btn()
     {
-        DataManager.Instance.dataDynamic.CurrentDynament += 120;
-        UIManager.Instance.UpdateScoreDyamon();
+        index = 120;
+        decisionPanel.SetActive(true);
     }
 
     public void OnClickAdm1KBtn()
     {
-        DataManager.Instance.dataDynamic.CurrentDynament += 1000;
-        UIManager.Instance.UpdateScoreDyamon();
+        index = 1000;
+        decisionPanel.SetActive(true);
     }
 
     public void OnClickAdm3KBtn()
     {
-        DataManager.Instance.dataDynamic.CurrentDynament += 3000;
-        UIManager.Instance.UpdateScoreDyamon();
+        index = 3000;
+        decisionPanel.SetActive(true);
     }
 
     public void OnClickAdm5KBtn()
     {
-        DataManager.Instance.dataDynamic.CurrentDynament += 5000;
-        UIManager.Instance.UpdateScoreDyamon();
+        index = 5000;
+        decisionPanel.SetActive(true);
     }
 
     public void OnClickAdm25KBtn()
     {
-        DataManager.Instance.dataDynamic.CurrentDynament += 25000;
-        UIManager.Instance.UpdateScoreDyamon();
+        index = 25000;
+        decisionPanel.SetActive(true);
     }
 
     public void OnClickAdm50KBtn()
     {
-        DataManager.Instance.dataDynamic.CurrentDynament += 50000;
+        index = 50000;
+        decisionPanel.SetActive(true);
+    }
+
+    public void OnClickConfirmBtn()
+    {
+        DataManager.Instance.dataDynamic.CurrentDynament += index;
         UIManager.Instance.UpdateScoreDyamon();
+        decisionPanel.SetActive(false);
+    }
+
+    public void OnClickCloseDesPanel()
+    {
+        decisionPanel.SetActive(false);
     }
 }
