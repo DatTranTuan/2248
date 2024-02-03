@@ -13,7 +13,7 @@ public class MergeState : IState
     public void OnExecute(GameManager gM)
     {
         timer += Time.deltaTime;
-        if (timer >= 1.5) gM.ChangeState(new DropState());
+        if (timer >= 0.7f) gM.ChangeState(new DropState());
     }
 
     public void OnExit(GameManager gM)
