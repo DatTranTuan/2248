@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -14,17 +13,12 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject playCanvas;
     [SerializeField] private GameObject pauseCanvas;
     [SerializeField] private GameObject themeCanvas;
-    [SerializeField] private GameObject swapCanvas;
-    [SerializeField] private GameObject hammerCanvas;
-    [SerializeField] private GameObject bottonButtons;
 
     [SerializeField] private GameObject settingCanvas;
     [SerializeField] private GameObject shopCanvas;
 
     [SerializeField] private Button playBtn;
     [SerializeField] private Button pauseBtn;
-    [SerializeField] private Button swapBtn;
-    [SerializeField] private Button hammerBtn;
     [SerializeField] private Button closePauseBtn;
     [SerializeField] private Button homeBtn;
     [SerializeField] private Button resumeBtn;
@@ -60,36 +54,9 @@ public class UIManager : Singleton<UIManager>
         closePauseBtn.onClick.AddListener(OnClickResumeBtn);
         resumeBtn.onClick.AddListener(OnClickResumeBtn);
         restartBtn.onClick.AddListener(OnClickRestartBtn);
-        swapBtn.onClick.AddListener(OnClickSwapBtn);
-        hammerBtn.onClick.AddListener(OnClickHammerBtn);
+
         Time.timeScale = 0f;
     }
-    public void TurnOnBottonButtons()
-    {
-        swapCanvas.SetActive(false);
-        hammerCanvas.SetActive(false);
-        bottonButtons.SetActive(true);
-    }
-    private void OnClickHammerBtn()
-    {
-        if (GameManager.Instance.gameState == 1)
-        {
-            GameManager.Instance.ChangeState(new HammerState());
-            hammerCanvas.SetActive(true);
-            bottonButtons.SetActive(false);
-        }
-    }
-
-    private void OnClickSwapBtn()
-    {
-        if (GameManager.Instance.gameState == 1)
-        {
-            GameManager.Instance.ChangeState(new SwapState());
-            swapCanvas.SetActive(true);
-            bottonButtons.SetActive(false);
-        }
-    }
-
     public void UpdateHighBlock()
     {
         highBlock.NumberText.text = GameManager.Instance.numberSO.listNumber[DataManager.Instance.dataDynamic.CurrentHighBlock].number.ToString();
