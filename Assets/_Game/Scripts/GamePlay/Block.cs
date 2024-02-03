@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    [SerializeField] private Animation anim;
     [SerializeField] private TextMeshProUGUI numberText;
     [SerializeField] private int number;
     private Vector3 exactLocation;
@@ -18,5 +17,4 @@ public class Block : MonoBehaviour
     public bool IsDrag { get => isDrag; set => isDrag = value; }
     public Vector3 ExactLocation { get => exactLocation; set => exactLocation = value; }
     public bool IsExactLocation { get => isExactLocation; set => isExactLocation = value; }
-    public Animation Anim { get => anim; set => anim = value; }
 }
