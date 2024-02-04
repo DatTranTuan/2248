@@ -43,6 +43,8 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private TextMeshProUGUI currentDynamonTextInPlay;
     [SerializeField] private TextMeshProUGUI currentDynamonTextInHome;
 
+    [SerializeField] private TextMeshProUGUI outMoneyTMP;
+
     private void Start()
     {
         gamePlay.SetActive(false);
@@ -74,9 +76,20 @@ public class UIManager : Singleton<UIManager>
     {
         if (GameManager.Instance.gameState == 1)
         {
-            GameManager.Instance.ChangeState(new HammerState());
-            hammerCanvas.SetActive(true);
-            bottonButtons.SetActive(false);
+            if (DataManager.Instance.dataDynamic.CurrentDynament >= 170)
+            {
+                Debug.Log("out");
+                DataManager.Instance.dataDynamic.CurrentDynament -= 170;
+                UpdateScoreDyamon();
+                GameManager.Instance.ChangeState(new HammerState());
+                hammerCanvas.SetActive(true);
+                bottonButtons.SetActive(false);
+            }
+            else
+            {
+                outMoneyTMP.gameObject.SetActive(true);
+                Invoke(nameof(DeActiveOutMoney), 1.5f);
+            }
         }
     }
 
@@ -84,10 +97,25 @@ public class UIManager : Singleton<UIManager>
     {
         if (GameManager.Instance.gameState == 1)
         {
-            GameManager.Instance.ChangeState(new SwapState());
-            swapCanvas.SetActive(true);
-            bottonButtons.SetActive(false);
+            if (DataManager.Instance.dataDynamic.CurrentDynament >= 170)
+            {
+                DataManager.Instance.dataDynamic.CurrentDynament -= 170;
+                UpdateScoreDyamon();
+                GameManager.Instance.ChangeState(new SwapState());
+                swapCanvas.SetActive(true);
+                bottonButtons.SetActive(false);
+            }
+            else
+            {
+                outMoneyTMP.gameObject.SetActive(true);
+                Invoke(nameof(DeActiveOutMoney), 1.5f);
+            }
         }
+    }
+
+    public void DeActiveOutMoney()
+    {
+        outMoneyTMP.gameObject.SetActive(false);
     }
 
     public void UpdateHighBlock()

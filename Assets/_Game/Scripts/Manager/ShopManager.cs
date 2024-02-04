@@ -13,7 +13,13 @@ public class ShopManager : Singleton<ShopManager>
     [SerializeField] private Button m25KBtn;
     [SerializeField] private Button m50KBtn;
 
+    [SerializeField] private GameObject deciPanel;
+    [SerializeField] private Button deciBtn;
+    [SerializeField] private Button ecsDeciBtn;
+
     [SerializeField] private TextMeshProUGUI diamondShopText;
+
+    private int index;
 
     public TextMeshProUGUI DiamondShopText { get => diamondShopText; set => diamondShopText = value; }
 
@@ -25,41 +31,56 @@ public class ShopManager : Singleton<ShopManager>
         m5KBtn.onClick.AddListener (OnClickAdm5KBtn);
         m25KBtn.onClick.AddListener(OnClickAdm25KBtn);
         m50KBtn.onClick.AddListener(OnClickAdm50KBtn);
+
+        deciBtn.onClick.AddListener(OnClickDeciBtn);
+        ecsDeciBtn.onClick.AddListener(OnClickECSBtn);
     }
 
     public void OnClickAd120Btn()
     {
-        DataManager.Instance.dataDynamic.CurrentDynament += 120;
-        UIManager.Instance.UpdateScoreDyamon();
+        index = 120;
+        deciPanel.SetActive(true);
     }
 
     public void OnClickAdm1KBtn()
     {
-        DataManager.Instance.dataDynamic.CurrentDynament += 1000;
-        UIManager.Instance.UpdateScoreDyamon();
+        index = 1000;
+        deciPanel.SetActive(true);
     }
 
     public void OnClickAdm3KBtn()
     {
-        DataManager.Instance.dataDynamic.CurrentDynament += 3000;
-        UIManager.Instance.UpdateScoreDyamon();
+        index = 3000;
+        deciPanel.SetActive(true);
     }
 
     public void OnClickAdm5KBtn()
     {
-        DataManager.Instance.dataDynamic.CurrentDynament += 5000;
-        UIManager.Instance.UpdateScoreDyamon();
+        index = 5000;
+        deciPanel.SetActive(true);
     }
 
     public void OnClickAdm25KBtn()
     {
-        DataManager.Instance.dataDynamic.CurrentDynament += 25000;
-        UIManager.Instance.UpdateScoreDyamon();
+        index = 25000;
+        deciPanel.SetActive(true);
     }
 
     public void OnClickAdm50KBtn()
     {
-        DataManager.Instance.dataDynamic.CurrentDynament += 50000;
+        index = 50000;
+        deciPanel.SetActive(true);
+    }
+
+    public void OnClickDeciBtn()
+    {
+        DataManager.Instance.dataDynamic.CurrentDynament += index;
         UIManager.Instance.UpdateScoreDyamon();
+        deciPanel.SetActive(false);
+    }
+
+    public void OnClickECSBtn()
+    {
+        deciPanel.SetActive(false);
     }
 }
