@@ -11,7 +11,9 @@ public class DataManager : Singleton<DataManager>
         GetPlayerpref();
         if (dataDynamic == null)
         {
+
             dataDynamic = new DataDynamic();
+            dataDynamic.firstTimePlaying = true;
             dataDynamic.currentDynament = 0;
             dataDynamic.currentHighScore = 0;
             dataDynamic.currentHighBlock = 0;
@@ -38,6 +40,7 @@ public class DataManager : Singleton<DataManager>
     private void OnApplicationQuit()
     {
         SetPlayerpref();
+        dataDynamic.firstTimePlaying = false;
     }
 
     private void OnApplicationFocus(bool focus)
@@ -47,9 +50,11 @@ public class DataManager : Singleton<DataManager>
             SetPlayerpref();
         }
     }
+
 }
 public class DataDynamic
 {
+    public bool firstTimePlaying;
     public int currentDynament;
     public int currentHighScore;
     public int currentHighBlock;
