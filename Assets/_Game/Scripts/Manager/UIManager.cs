@@ -17,9 +17,9 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject swapCanvas;
     [SerializeField] private GameObject hammerCanvas;
     [SerializeField] private GameObject bottonButtons;
-
     [SerializeField] private GameObject settingCanvas;
     [SerializeField] private GameObject shopCanvas;
+    [SerializeField] private GameObject tutorialCanvas;
 
     [SerializeField] private Button playBtn;
     [SerializeField] private Button pauseBtn;
@@ -45,9 +45,12 @@ public class UIManager : Singleton<UIManager>
 
     [SerializeField] private TextMeshProUGUI outMoneyTMP;
 
+    public GameObject GamePlay { get => gamePlay; set => gamePlay = value; }
+    public GameObject TutorialCanvas { get => tutorialCanvas; set => tutorialCanvas = value; }
+
     private void Start()
     {
-        gamePlay.SetActive(false);
+        GamePlay.SetActive(false);
         UpdateScoreDyamon();
         UpdateHighBlock();
         playBtn.onClick.AddListener(OnClickPlayBtn);
@@ -141,10 +144,18 @@ public class UIManager : Singleton<UIManager>
     }
     public void OnClickPlayBtn()
     {
-        gamePlay.SetActive(true);
         playCanvas.SetActive(true);
         homeCanvas.SetActive(false);
+        if (DataManager.Instance.dataDynamic.firstTimePlaying == true)
+        {
+            TutorialCanvas.SetActive(true);
+        }
+        else
+        {
+            GamePlay.SetActive(true);
+        }
         Time.timeScale = 1.0f;
+        DataManager.Instance.dataDynamic.firstTimePlaying = false;
     }
 
     public void OnClickSettingBtn()
@@ -185,7 +196,7 @@ public class UIManager : Singleton<UIManager>
 
     public void OnClickPauseBtn()
     {
-        gamePlay.SetActive(false);
+        GamePlay.SetActive(false);
         playCanvas.SetActive(false);
         pauseCanvas.SetActive(true);
     }
@@ -199,7 +210,7 @@ public class UIManager : Singleton<UIManager>
 
     public void OnClickResumeBtn()
     {
-        gamePlay.SetActive(true);
+        GamePlay.SetActive(true);
         playCanvas.SetActive(true);
         pauseCanvas.SetActive(false);
     }
