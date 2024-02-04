@@ -17,3 +17,4 @@ MonoBehaviour:
   - themeSprite: {fileID: 21300000, guid: dd6e725ebb96615429d289ababc76faf, type: 3}
   - themeSprite: {fileID: 21300000, guid: b389ef1d28af2c043af9dd0e9d6858dc, type: 3}
   - themeSprite: {fileID: 21300000, guid: 0d874dba69a96f4468568356fbccece3, type: 3}
+  - themeSprite: {fileID: 21300000, guid: 27b72e63bf6569f40804eccf2beac31b, type: 3}

@@ -13,13 +13,28 @@ public class W2 : Singleton<W2>
     {
         buyBtn.onClick.AddListener(OnClickBuyBtn);
         equipBtn.onClick.AddListener(OnClickEquipBtn);
+
+        switch (DataManager.Instance.dataDynamic.buyingSatus[1])
+        {
+            case BuyingStatus.BUY:
+                equipBtn.gameObject.SetActive(true);
+                break;
+            case BuyingStatus.NOTBUY:
+                buyBtn.gameObject.SetActive(true);
+                break;
+            case BuyingStatus.USING:
+                equipedBtn.gameObject.SetActive(true);
+                //ChangeTheme(1);
+                break;
+        }
     }
 
     public void OnClickBuyBtn()
     {
-        if (DataManager.Instance.dataDynamic.CurrentDynament >= 150)
+        if (DataManager.Instance.dataDynamic.currentDynament >= 150)
         {
-            DataManager.Instance.dataDynamic.CurrentDynament -= 150;
+            DataManager.Instance.dataDynamic.buyingSatus[1] = BuyingStatus.BUY;
+            DataManager.Instance.dataDynamic.currentDynament -= 150;
             UIManager.Instance.UpdateScoreDyamon();
             equipBtn.gameObject.SetActive(true);
             buyBtn.gameObject.SetActive(false);
@@ -29,18 +44,23 @@ public class W2 : Singleton<W2>
 
     public void OnClickEquipBtn()
     {
+
+        DataManager.Instance.dataDynamic.currentTheme = 1;
+        DataManager.Instance.dataDynamic.buyingSatus[1] = BuyingStatus.USING;
         equipedBtn.gameObject.SetActive(true);
         equipBtn.gameObject.SetActive(false);
         ChangeTheme(1);
         W1.Instance.SetEquipBtn();
         W4.Instance.SetEquipBtn();
         W3.Instance.SetEquipBtn();
+        Default.Instance.SetEquipBtn();
     }
 
     public void SetEquipBtn()
     {
         if (equipedBtn.gameObject.activeInHierarchy)
         {
+            DataManager.Instance.dataDynamic.buyingSatus[1] = BuyingStatus.BUY;
             equipedBtn.gameObject.SetActive(false);
             equipBtn.gameObject.SetActive(true);
         }

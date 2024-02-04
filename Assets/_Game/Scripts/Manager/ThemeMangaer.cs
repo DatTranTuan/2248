@@ -22,4 +22,17 @@ public class ThemeMangaer : Singleton<ThemeMangaer>
     public GameObject ThemeCanvas { get => themeCanvas; set => themeCanvas = value; }
     public ThemeSO ThemeSO { get => themeSO; set => themeSO = value; }
     public GameObject ShopCanvas { get => shopCanvas; set => shopCanvas = value; }
+    private void Start()
+    {
+        ChangeTheme(DataManager.Instance.dataDynamic.currentTheme);
+    }
+    public void ChangeTheme(int index)
+    {
+        HomeCanvas.GetComponent<Image>().sprite = ThemeSO.listTheme[index].themeSprite;
+        PlayCanvas.GetComponent<Image>().sprite = ThemeSO.listTheme[index].themeSprite;
+        PauseCanvas.GetComponent<Image>().sprite = ThemeSO.listTheme[index].themeSprite;
+        SettingCanvas.GetComponent<Image>().sprite = ThemeSO.listTheme[index].themeSprite;
+        ThemeCanvas.GetComponent<Image>().sprite = ThemeSO.listTheme[index].themeSprite;
+        ShopCanvas.GetComponent<Image>().sprite = ThemeSO.listTheme[index].themeSprite;
+    }
 }
