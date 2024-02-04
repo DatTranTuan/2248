@@ -12,9 +12,16 @@ public class DataManager : Singleton<DataManager>
         if (dataDynamic == null)
         {
             dataDynamic = new DataDynamic();
-            dataDynamic.CurrentDynament = 0;
-            dataDynamic.CurrentHighScore = 0;
-            dataDynamic.CurrentHighBlock = 0;
+            dataDynamic.currentDynament = 0;
+            dataDynamic.currentHighScore = 0;
+            dataDynamic.currentHighBlock = 0;
+            dataDynamic.currentTheme = 4;
+            dataDynamic.buyingSatus = new BuyingStatus[5];
+            for(int i=0;i<= 3; i++)
+            {
+                dataDynamic.buyingSatus[i] = BuyingStatus.NOTBUY;
+            }
+            dataDynamic.buyingSatus[4] = BuyingStatus.USING;
             SetPlayerpref();
         }
     }
@@ -43,7 +50,15 @@ public class DataManager : Singleton<DataManager>
 }
 public class DataDynamic
 {
-    public int CurrentDynament;
-    public int CurrentHighScore;
-    public int CurrentHighBlock;
+    public int currentDynament;
+    public int currentHighScore;
+    public int currentHighBlock;
+    public int currentTheme;
+    public BuyingStatus[] buyingSatus;
+}
+public enum BuyingStatus
+{
+    NOTBUY,
+    BUY,
+    USING,
 }

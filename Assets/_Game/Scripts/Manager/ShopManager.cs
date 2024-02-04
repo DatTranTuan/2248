@@ -74,7 +74,7 @@ public class ShopManager : Singleton<ShopManager>
 
     public void OnClickDeciBtn()
     {
-        DataManager.Instance.dataDynamic.CurrentDynament += index;
+        DataManager.Instance.dataDynamic.currentDynament += index;
         UIManager.Instance.UpdateScoreDyamon();
         deciPanel.SetActive(false);
     }

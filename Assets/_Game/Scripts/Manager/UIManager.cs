@@ -76,10 +76,10 @@ public class UIManager : Singleton<UIManager>
     {
         if (GameManager.Instance.gameState == 1)
         {
-            if (DataManager.Instance.dataDynamic.CurrentDynament >= 170)
+            if (DataManager.Instance.dataDynamic.currentDynament >= 170)
             {
                 Debug.Log("out");
-                DataManager.Instance.dataDynamic.CurrentDynament -= 170;
+                DataManager.Instance.dataDynamic.currentDynament -= 170;
                 UpdateScoreDyamon();
                 GameManager.Instance.ChangeState(new HammerState());
                 hammerCanvas.SetActive(true);
@@ -97,9 +97,9 @@ public class UIManager : Singleton<UIManager>
     {
         if (GameManager.Instance.gameState == 1)
         {
-            if (DataManager.Instance.dataDynamic.CurrentDynament >= 170)
+            if (DataManager.Instance.dataDynamic.currentDynament >= 170)
             {
-                DataManager.Instance.dataDynamic.CurrentDynament -= 170;
+                DataManager.Instance.dataDynamic.currentDynament -= 170;
                 UpdateScoreDyamon();
                 GameManager.Instance.ChangeState(new SwapState());
                 swapCanvas.SetActive(true);
@@ -120,24 +120,24 @@ public class UIManager : Singleton<UIManager>
 
     public void UpdateHighBlock()
     {
-        highBlock.NumberText.text = GameManager.Instance.numberSO.listNumber[DataManager.Instance.dataDynamic.CurrentHighBlock].number.ToString();
-        highBlock.GetComponent<Image>().color = GameManager.Instance.numberSO.listNumber[DataManager.Instance.dataDynamic.CurrentHighBlock].color;
+        highBlock.NumberText.text = GameManager.Instance.numberSO.listNumber[DataManager.Instance.dataDynamic.currentHighBlock].number.ToString();
+        highBlock.GetComponent<Image>().color = GameManager.Instance.numberSO.listNumber[DataManager.Instance.dataDynamic.currentHighBlock].color;
     }
     public void UpdateScoreDyamon()
     {
-        curentHighScoreTextInPlay.text = DataManager.Instance.dataDynamic.CurrentHighScore.ToString();
-        curentHighScoreTextInHome.text = DataManager.Instance.dataDynamic.CurrentHighScore.ToString();
-        currentDynamonTextInPlay.text = DataManager.Instance.dataDynamic.CurrentDynament.ToString();
-        currentDynamonTextInHome.text = DataManager.Instance.dataDynamic.CurrentDynament.ToString();
-        ShopManager.Instance.DiamondShopText.text = DataManager.Instance.dataDynamic.CurrentDynament.ToString();
+        curentHighScoreTextInPlay.text = DataManager.Instance.dataDynamic.currentHighScore.ToString();
+        curentHighScoreTextInHome.text = DataManager.Instance.dataDynamic.currentHighScore.ToString();
+        currentDynamonTextInPlay.text = DataManager.Instance.dataDynamic.currentDynament.ToString();
+        currentDynamonTextInHome.text = DataManager.Instance.dataDynamic.currentDynament.ToString();
+        ShopManager.Instance.DiamondShopText.text = DataManager.Instance.dataDynamic.currentDynament.ToString();
     }
     public void UpdateTotalScore()
     {
         totalScoreText.text = GameManager.Instance.TotalScore.ToString();
-        curentHighScoreTextInPlay.text = DataManager.Instance.dataDynamic.CurrentHighScore.ToString();
-        curentHighScoreTextInHome.text = DataManager.Instance.dataDynamic.CurrentHighScore.ToString();
-        currentDynamonTextInPlay.text = DataManager.Instance.dataDynamic.CurrentDynament.ToString();
-        currentDynamonTextInHome.text = DataManager.Instance.dataDynamic.CurrentDynament.ToString();
+        curentHighScoreTextInPlay.text = DataManager.Instance.dataDynamic.currentHighScore.ToString();
+        curentHighScoreTextInHome.text = DataManager.Instance.dataDynamic.currentHighScore.ToString();
+        currentDynamonTextInPlay.text = DataManager.Instance.dataDynamic.currentDynament.ToString();
+        currentDynamonTextInHome.text = DataManager.Instance.dataDynamic.currentDynament.ToString();
     }
     public void OnClickPlayBtn()
     {

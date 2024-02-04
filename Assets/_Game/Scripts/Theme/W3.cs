@@ -13,13 +13,27 @@ public class W3 : Singleton<W3>
     {
         buyBtn.onClick.AddListener(OnClickBuyBtn);
         equipBtn.onClick.AddListener(OnClickEquipBtn);
+        switch (DataManager.Instance.dataDynamic.buyingSatus[2])
+        {
+            case BuyingStatus.BUY:
+                equipBtn.gameObject.SetActive(true);
+                break;
+            case BuyingStatus.NOTBUY:
+                buyBtn.gameObject.SetActive(true);
+                break;
+            case BuyingStatus.USING:
+                equipedBtn.gameObject.SetActive(true);
+                //ChangeTheme(2);
+                break;
+        }
     }
 
     public void OnClickBuyBtn()
     {
-        if (DataManager.Instance.dataDynamic.CurrentDynament >= 150)
+        if (DataManager.Instance.dataDynamic.currentDynament >= 150)
         {
-            DataManager.Instance.dataDynamic.CurrentDynament -= 150;
+            DataManager.Instance.dataDynamic.buyingSatus[2] = BuyingStatus.BUY;
+            DataManager.Instance.dataDynamic.currentDynament -= 150;
             UIManager.Instance.UpdateScoreDyamon();
             equipBtn.gameObject.SetActive(true);
             buyBtn.gameObject.SetActive(false);
@@ -31,6 +45,7 @@ public class W3 : Singleton<W3>
     {
         if (equipedBtn.gameObject.activeInHierarchy)
         {
+            DataManager.Instance.dataDynamic.buyingSatus[2] = BuyingStatus.BUY;
             equipedBtn.gameObject.SetActive(false);
             equipBtn.gameObject.SetActive(true);
         }
@@ -38,12 +53,15 @@ public class W3 : Singleton<W3>
 
     public void OnClickEquipBtn()
     {
+        DataManager.Instance.dataDynamic.currentTheme = 2;
+        DataManager.Instance.dataDynamic.buyingSatus[2] = BuyingStatus.USING;
         equipedBtn.gameObject.SetActive(true);
         equipBtn.gameObject.SetActive(false);
         ChangeTheme(2);
         W2.Instance.SetEquipBtn();
         W4.Instance.SetEquipBtn();
         W1.Instance.SetEquipBtn();
+        Default.Instance.SetEquipBtn();
     }
 
     public void ChangeTheme(int index)

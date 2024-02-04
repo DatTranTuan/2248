@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class W1 : Singleton<W1>
+public class Default : Singleton<Default>
 {
     [SerializeField] private Button buyBtn;
     [SerializeField] private Button equipBtn;
@@ -13,7 +13,7 @@ public class W1 : Singleton<W1>
     {
         buyBtn.onClick.AddListener(OnClickBuyBtn);
         equipBtn.onClick.AddListener(OnClickEquipBtn);
-        switch (DataManager.Instance.dataDynamic.buyingSatus[0])
+        switch (DataManager.Instance.dataDynamic.buyingSatus[4])
         {
             case BuyingStatus.BUY:
                 equipBtn.gameObject.SetActive(true);
@@ -23,7 +23,7 @@ public class W1 : Singleton<W1>
                 break;
             case BuyingStatus.USING:
                 equipedBtn.gameObject.SetActive(true);
-                //ChangeTheme(0);
+                //ChangeTheme(4);
                 break;
         }
     }
@@ -36,17 +36,15 @@ public class W1 : Singleton<W1>
             UIManager.Instance.UpdateScoreDyamon();
             equipBtn.gameObject.SetActive(true);
             buyBtn.gameObject.SetActive(false);
-            DataManager.Instance.dataDynamic.buyingSatus[0] = BuyingStatus.BUY;
         }
-       
+
     }
 
     public void SetEquipBtn()
     {
         if (equipedBtn.gameObject.activeInHierarchy)
         {
-
-            DataManager.Instance.dataDynamic.buyingSatus[0] = BuyingStatus.BUY;
+            DataManager.Instance.dataDynamic.buyingSatus[4] = BuyingStatus.BUY;
             equipedBtn.gameObject.SetActive(false);
             equipBtn.gameObject.SetActive(true);
         }
@@ -54,15 +52,15 @@ public class W1 : Singleton<W1>
 
     public void OnClickEquipBtn()
     {
-        DataManager.Instance.dataDynamic.currentTheme = 0;
-        DataManager.Instance.dataDynamic.buyingSatus[0] = BuyingStatus.USING;
+        DataManager.Instance.dataDynamic.currentTheme = 4;
+        DataManager.Instance.dataDynamic.buyingSatus[4] = BuyingStatus.USING;
         equipedBtn.gameObject.SetActive(true);
         equipBtn.gameObject.SetActive(false);
-        ChangeTheme(0);
+        ChangeTheme(4);
         W2.Instance.SetEquipBtn();
         W4.Instance.SetEquipBtn();
         W3.Instance.SetEquipBtn();
-        Default.Instance.SetEquipBtn();
+        W1.Instance.SetEquipBtn();
     }
 
     public void ChangeTheme(int index)
@@ -75,4 +73,3 @@ public class W1 : Singleton<W1>
         ThemeMangaer.Instance.ShopCanvas.GetComponent<Image>().sprite = ThemeMangaer.Instance.ThemeSO.listTheme[index].themeSprite;
     }
 }
- 
