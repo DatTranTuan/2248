@@ -30,7 +30,6 @@ public class ThemeMangaer : Singleton<ThemeMangaer>
     {
         HomeCanvas.GetComponent<Image>().sprite = ThemeSO.listTheme[index].themeSprite;
         PlayCanvas.GetComponent<Image>().sprite = ThemeSO.listTheme[index].themeSprite;
-        PauseCanvas.GetComponent<Image>().sprite = ThemeSO.listTheme[index].themeSprite;
         SettingCanvas.GetComponent<Image>().sprite = ThemeSO.listTheme[index].themeSprite;
         ThemeCanvas.GetComponent<Image>().sprite = ThemeSO.listTheme[index].themeSprite;
         ShopCanvas.GetComponent<Image>().sprite = ThemeSO.listTheme[index].themeSprite;
