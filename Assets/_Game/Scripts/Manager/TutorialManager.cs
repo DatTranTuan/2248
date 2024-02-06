@@ -11,6 +11,7 @@ public class TutorialManager : Singleton<TutorialManager>
     [SerializeField] private Button previousBtn;
     [SerializeField] private Button nextBtn;
     [SerializeField] private Button escBtb;
+    [SerializeField] private int max;
 
     [SerializeField] private Image tutImage;
     [SerializeField] private TextMeshProUGUI tutTMP;
@@ -21,8 +22,6 @@ public class TutorialManager : Singleton<TutorialManager>
     {
         index = 0;
         ChangeImageText();
-        previousBtn.gameObject.SetActive(false);
-        nextBtn.gameObject.SetActive(true);
         escBtb.onClick.AddListener(OnClickEcsBtn);
         previousBtn.onClick.AddListener(OnClickPreviousBtn);
         nextBtn.onClick.AddListener(OnClickNextBtn);
@@ -36,30 +35,14 @@ public class TutorialManager : Singleton<TutorialManager>
     public void OnClickNextBtn()
     {
         index++;
-
-        if (index <2)
-        {
-            previousBtn.gameObject.SetActive(true);
-        }
-        else if(index == 2)
-        {
-            nextBtn.gameObject.SetActive(false);
-        }
+        if (index > max) index = 0;
         ChangeImageText();
     }
 
     public void OnClickPreviousBtn()
     {
         index--;
-
-        if (index >0)
-        {
-            nextBtn.gameObject.SetActive(true);
-        }
-        else if (index == 0)
-        {
-            previousBtn.gameObject.SetActive(false);
-        }
+        if(index<0) index = max;
         ChangeImageText();
     }
 
