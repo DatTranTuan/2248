@@ -6,16 +6,16 @@ using UnityEngine.UI;
 
 public class ShopManager : Singleton<ShopManager>
 {
-    [SerializeField] private Button ad120Btn;
-    [SerializeField] private Button m1KBtn;
-    [SerializeField] private Button m3KBtn;
-    [SerializeField] private Button m5KBtn;
-    [SerializeField] private Button m25KBtn;
-    [SerializeField] private Button m50KBtn;
+    [SerializeField] private GameObject homePanel;
+    [SerializeField] private GameObject shopPanel;
 
-    [SerializeField] private GameObject deciPanel;
-    [SerializeField] private Button deciBtn;
-    [SerializeField] private Button ecsDeciBtn;
+    [SerializeField] private Button m180Btn;
+    [SerializeField] private Button m500Btn;
+    [SerializeField] private Button m1200Btn;
+    [SerializeField] private Button m6500Btn;
+    [SerializeField] private Button m15000Btn;
+
+    [SerializeField] private Button escBtn;
 
     [SerializeField] private TextMeshProUGUI diamondShopText;
 
@@ -25,62 +25,52 @@ public class ShopManager : Singleton<ShopManager>
 
     private void Start()
     {
-        ad120Btn.onClick.AddListener(OnClickAd120Btn);
-        m1KBtn.onClick.AddListener(OnClickAdm1KBtn);
-        m3KBtn.onClick.AddListener(OnClickAdm3KBtn);
-        m5KBtn.onClick.AddListener (OnClickAdm5KBtn);
-        m25KBtn.onClick.AddListener(OnClickAdm25KBtn);
-        m50KBtn.onClick.AddListener(OnClickAdm50KBtn);
-
-        deciBtn.onClick.AddListener(OnClickDeciBtn);
-        ecsDeciBtn.onClick.AddListener(OnClickECSBtn);
+        m180Btn.onClick.AddListener(OnClickAdm180Btn);
+        m500Btn.onClick.AddListener(OnClickAdm500Btn);
+        m1200Btn.onClick.AddListener (OnClickAdm1200Btn);
+        m6500Btn.onClick.AddListener(OnClickAdm6500Btn);
+        m15000Btn.onClick.AddListener(OnClickAdm15000Btn);
+        escBtn.onClick.AddListener(OnClickECSBtn);
     }
-
-    public void OnClickAd120Btn()
+    public void OnClickAdm180Btn()
     {
-        index = 120;
-        deciPanel.SetActive(true);
+        index = 180;
+        OnClickBuyBtn();
     }
 
-    public void OnClickAdm1KBtn()
+    public void OnClickAdm500Btn()
     {
-        index = 1000;
-        deciPanel.SetActive(true);
+        index = 500;
+        OnClickBuyBtn();
     }
 
-    public void OnClickAdm3KBtn()
+    public void OnClickAdm1200Btn()
     {
-        index = 3000;
-        deciPanel.SetActive(true);
+        index = 1200;
+        OnClickBuyBtn();
     }
 
-    public void OnClickAdm5KBtn()
+    public void OnClickAdm6500Btn()
     {
-        index = 5000;
-        deciPanel.SetActive(true);
+        index = 6500;
+        OnClickBuyBtn();
     }
 
-    public void OnClickAdm25KBtn()
+    public void OnClickAdm15000Btn()
     {
-        index = 25000;
-        deciPanel.SetActive(true);
-    }
+        index = 15000;
+        OnClickBuyBtn();
 
-    public void OnClickAdm50KBtn()
-    {
-        index = 50000;
-        deciPanel.SetActive(true);
     }
-
-    public void OnClickDeciBtn()
+    public void OnClickBuyBtn()
     {
         DataManager.Instance.dataDynamic.currentDynament += index;
         UIManager.Instance.UpdateScoreDyamon();
-        deciPanel.SetActive(false);
     }
 
     public void OnClickECSBtn()
     {
-        deciPanel.SetActive(false);
+        shopPanel.SetActive(false);
+        homePanel.SetActive(true);
     }
 }
