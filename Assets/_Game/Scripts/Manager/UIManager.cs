@@ -47,9 +47,12 @@ public class UIManager : Singleton<UIManager>
 
     public GameObject GamePlay { get => gamePlay; set => gamePlay = value; }
     public GameObject TutorialCanvas { get => tutorialCanvas; set => tutorialCanvas = value; }
+    public GameObject HomeCanvas { get => homeCanvas; set => homeCanvas = value; }
 
     private void Start()
     {
+        GameManager.Instance.TotalScore = 0;
+        UpdateTotalScore();
         GamePlay.SetActive(false);
         UpdateScoreDyamon();
         UpdateHighBlock();
@@ -145,7 +148,7 @@ public class UIManager : Singleton<UIManager>
     public void OnClickPlayBtn()
     {
         playCanvas.SetActive(true);
-        homeCanvas.SetActive(false);
+        HomeCanvas.SetActive(false);
         if (DataManager.Instance.dataDynamic.firstTimePlaying == true)
         {
             TutorialCanvas.SetActive(true);
@@ -160,37 +163,37 @@ public class UIManager : Singleton<UIManager>
 
     public void OnClickSettingBtn()
     {
-        homeCanvas.SetActive(false);
+        HomeCanvas.SetActive(false);
         settingCanvas.SetActive(true);
     }
 
     public void OnClickBackSetting()
     {
-        homeCanvas.SetActive(true);
+        HomeCanvas.SetActive(true);
         settingCanvas.SetActive(false);
     }
 
     public void OnClickShopBtn()
     {
-        homeCanvas.SetActive(false);
+        HomeCanvas.SetActive(false);
         shopCanvas.SetActive(true);
     }
 
     public void OnClickBackShopBtn()
     {
-        homeCanvas.SetActive(true);
+        HomeCanvas.SetActive(true);
         shopCanvas.SetActive(false);
     }
 
     public void OnClickThemeBtn()
     {
-        homeCanvas.SetActive(false);
+        HomeCanvas.SetActive(false);
         themeCanvas.SetActive(true);
     }
 
     public void OnClickBackThemeBtn()
     {
-        homeCanvas.SetActive(true);
+        HomeCanvas.SetActive(true);
         themeCanvas.SetActive(false);
     }
 
@@ -203,9 +206,11 @@ public class UIManager : Singleton<UIManager>
 
     public void OnClickHomeBtn()
     {
-        homeCanvas.SetActive(true);
+        HomeCanvas.SetActive(true);
         pauseCanvas.SetActive(false);
         UpdateHighBlock();
+        GameManager.Instance.TotalScore = 0;
+        UpdateTotalScore();
     }
 
     public void OnClickResumeBtn()
@@ -218,6 +223,12 @@ public class UIManager : Singleton<UIManager>
     public void OnClickRestartBtn()
     {
         DataManager.Instance.SetPlayerpref();
-        SceneManager.LoadScene("SampleScene");
+        GameManager.Instance.OnDeath();
+        GameManager.Instance.Init();
+        GamePlay.SetActive(true);
+        playCanvas.SetActive(true);
+        pauseCanvas.SetActive(false);
+        GameManager.Instance.TotalScore = 0;
+        UpdateTotalScore();
     }
 }
