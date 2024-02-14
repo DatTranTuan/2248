@@ -217,12 +217,12 @@ public class GameManager : Singleton<GameManager>
                     endBlock.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 10;
                     endBlock.gameObject.GetComponentInChildren<Canvas>().sortingOrder = 11;
                     listDeleteBlock[blockCount -1].Number= ScoreCaculate();
-                    if(listDeleteBlock[blockCount - 1].Number> DataManager.Instance.dataDynamic.CurrentHighBlock)
+                    if(listDeleteBlock[blockCount - 1].Number> DataManager.Instance.dataDynamic.currentHighBlock)
                     {
-                        DataManager.Instance.dataDynamic.CurrentHighBlock = listDeleteBlock[blockCount - 1].Number;
+                        DataManager.Instance.dataDynamic.currentHighBlock = listDeleteBlock[blockCount - 1].Number;
                     }
                     TotalScore += numberSO.listNumber[ScoreCaculate()].number;
-                    if (totalScore > DataManager.Instance.dataDynamic.CurrentHighScore) DataManager.Instance.dataDynamic.CurrentHighScore = totalScore;
+                    if (totalScore > DataManager.Instance.dataDynamic.currentHighScore) DataManager.Instance.dataDynamic.currentHighScore = totalScore;
                     UIManager.Instance.UpdateTotalScore();
                     PopUpIncScore(numberSO.listNumber[ScoreCaculate()].number, blockCount, listDeleteBlock[blockCount - 1].transform);
                 }
@@ -261,13 +261,13 @@ public class GameManager : Singleton<GameManager>
             x.transform.position = currentBlock.position+ offset;
             x.GetComponent<TextMeshProUGUI>().text = "Combo X" + count;
             GameObject y = Instantiate(popUpScore, popUpIncDyamonParent);
-            y.transform.localPosition = new Vector3(60, 87 , 0);
+            y.transform.position = popUpIncDyamonParent.position+ new Vector3(1.2f,0,0);
             y.GetComponent<TextMeshProUGUI>().text = "+1" ;
-            DataManager.Instance.dataDynamic.CurrentDynament++;
+            DataManager.Instance.dataDynamic.currentDynament++;
             UIManager.Instance.UpdateScoreDyamon();
         }
         GameObject t= Instantiate(popUpScore, popUpScoreParent);
-        t.transform.localPosition = new Vector3(125, 35, 0);
+        t.transform.position = popUpScoreParent.position + new Vector3(1,0,0);
         t.GetComponent<TextMeshProUGUI>().text = "+" + score.ToString();
     }
     private int ScoreCaculate()
