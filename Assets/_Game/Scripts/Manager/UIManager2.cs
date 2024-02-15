@@ -12,17 +12,17 @@ public class UIManager2 : Singleton<UIManager2>
     [SerializeField] private TextMeshProUGUI textLoad;
 
     [SerializeField] private float speed;
-
+    private float slidervalue;
     private void Start()
     {
-        loadSlider.value = 0f;
+        slidervalue = 0;
         textLoad.text = "0%";
     }
 
     private void Update()
     {
-        Debug.Log(loadSlider.value);
-        loadSlider.value += Time.deltaTime * speed;
+        slidervalue = slidervalue+  speed;
+        loadSlider.value = slidervalue;
         textLoad.text = Mathf.Round(loadSlider.value) + "%";
 
         if (loadSlider.value >= 100f)
