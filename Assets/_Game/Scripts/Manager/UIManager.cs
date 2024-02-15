@@ -163,13 +163,11 @@ public class UIManager : Singleton<UIManager>
 
     public void OnClickSettingBtn()
     {
-        HomeCanvas.SetActive(false);
         settingCanvas.SetActive(true);
     }
 
     public void OnClickBackSetting()
     {
-        HomeCanvas.SetActive(true);
         settingCanvas.SetActive(false);
     }
 
@@ -200,7 +198,6 @@ public class UIManager : Singleton<UIManager>
     public void OnClickPauseBtn()
     {
         GamePlay.SetActive(false);
-        playCanvas.SetActive(false);
         pauseCanvas.SetActive(true);
     }
 
@@ -208,6 +205,7 @@ public class UIManager : Singleton<UIManager>
     {
         HomeCanvas.SetActive(true);
         pauseCanvas.SetActive(false);
+        playCanvas.SetActive(false);
         UpdateHighBlock();
         GameManager.Instance.TotalScore = 0;
         UpdateTotalScore();
@@ -216,7 +214,6 @@ public class UIManager : Singleton<UIManager>
     public void OnClickResumeBtn()
     {
         GamePlay.SetActive(true);
-        playCanvas.SetActive(true);
         pauseCanvas.SetActive(false);
     }
 
