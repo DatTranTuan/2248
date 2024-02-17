@@ -49,6 +49,7 @@ public class ThemeMangaer : Singleton<ThemeMangaer>
             OnEquipBtn();
             DataManager.Instance.dataDynamic.buyingSatus[index] = BuyingStatus.BUY;
             DataManager.Instance.dataDynamic.currentDynament -= 150;
+            UIManager.Instance.UpdateScoreDyamon();
         }
     }
     public void OnClickEquipBtn()

@@ -36,11 +36,17 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Button backShopBtn;
     [SerializeField] private Button themeBtn;
     [SerializeField] private Button backThemeBtn;
+    [SerializeField] private Button buyMoreGemBtninGame;
+    [SerializeField] private Button buyMoreGemBtninShop;
+    [SerializeField] private Button buyMoreGemBtninThemShop;
+    [SerializeField] private Button buyMoreGemBtninHome;
 
     [SerializeField] private TextMeshProUGUI totalScoreText;
     [SerializeField] private TextMeshProUGUI curentHighScoreTextInPlay;
     [SerializeField] private TextMeshProUGUI curentHighScoreTextInHome;
     [SerializeField] private TextMeshProUGUI currentDynamonTextInPlay;
+    [SerializeField] private TextMeshProUGUI currentDynamonTextInShop;
+    [SerializeField] private TextMeshProUGUI currentDynamonTextInThemeShop;
     [SerializeField] private TextMeshProUGUI currentDynamonTextInHome;
 
     [SerializeField] private TextMeshProUGUI outMoneyTMP;
@@ -70,8 +76,13 @@ public class UIManager : Singleton<UIManager>
         restartBtn.onClick.AddListener(OnClickRestartBtn);
         swapBtn.onClick.AddListener(OnClickSwapBtn);
         hammerBtn.onClick.AddListener(OnClickHammerBtn);
+        buyMoreGemBtninGame.onClick.AddListener(OnClickShopBtn);
+        buyMoreGemBtninHome.onClick.AddListener(OnClickShopBtn);
+        buyMoreGemBtninShop.onClick.AddListener(OnClickShopBtn);
+        buyMoreGemBtninThemShop.onClick.AddListener(OnClickShopBtn);
         Time.timeScale = 0f;
     }
+
     public void TurnOnBottonButtons()
     {
         swapCanvas.SetActive(false);
@@ -135,6 +146,7 @@ public class UIManager : Singleton<UIManager>
         curentHighScoreTextInHome.text = DataManager.Instance.dataDynamic.currentHighScore.ToString();
         currentDynamonTextInPlay.text = DataManager.Instance.dataDynamic.currentDynament.ToString();
         currentDynamonTextInHome.text = DataManager.Instance.dataDynamic.currentDynament.ToString();
+        currentDynamonTextInThemeShop.text = DataManager.Instance.dataDynamic.currentDynament.ToString();
         ShopManager.Instance.DiamondShopText.text = DataManager.Instance.dataDynamic.currentDynament.ToString();
     }
     public void UpdateTotalScore()
@@ -173,14 +185,14 @@ public class UIManager : Singleton<UIManager>
 
     public void OnClickShopBtn()
     {
-        HomeCanvas.SetActive(false);
+        if (GamePlay.activeInHierarchy) gamePlay.SetActive(false);
         shopCanvas.SetActive(true);
     }
 
     public void OnClickBackShopBtn()
     {
-        HomeCanvas.SetActive(true);
         shopCanvas.SetActive(false);
+        if (playCanvas.activeInHierarchy) gamePlay.SetActive(true);
     }
 
     public void OnClickThemeBtn()
