@@ -44,8 +44,12 @@ public class ThemeMangaer : Singleton<ThemeMangaer>
     }
     public void OnClickBuyBtn()
     {
-        OnEquipBtn();
-        DataManager.Instance.dataDynamic.buyingSatus[index] = BuyingStatus.BUY;
+        if(DataManager.Instance.dataDynamic.currentDynament>= 150)
+        {
+            OnEquipBtn();
+            DataManager.Instance.dataDynamic.buyingSatus[index] = BuyingStatus.BUY;
+            DataManager.Instance.dataDynamic.currentDynament -= 150;
+        }
     }
     public void OnClickEquipBtn()
     {
