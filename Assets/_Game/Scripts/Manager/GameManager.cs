@@ -122,7 +122,10 @@ public class GameManager : Singleton<GameManager>
         mousePosition.z = 0;
         if (hit.collider != null && Input.GetMouseButtonDown(0))
         {
-
+            if (DataManager.Instance.dataDynamic.soundStatus == true)
+            {
+                SoundManager.Instance.sounds[blockCount % 7].source.Play();
+            }
             blockCount++;
             line = Instantiate(lineController, lineParent);
             lineList.Add(line);
@@ -153,6 +156,10 @@ public class GameManager : Singleton<GameManager>
                     if (preBlock.Number == hit.collider.GetComponent<Block>().Number)
                     {
                         currentBlock.Anim.Play("MergeBlock");
+                        if (DataManager.Instance.dataDynamic.soundStatus == true)
+                        {
+                            SoundManager.Instance.sounds[blockCount % 7].source.Play();
+                        }
                         blockCount++;
                         line.LineRenderer.SetPosition(1, currentBlock.transform.position);
                         line = Instantiate(lineController, lineParent);
@@ -171,6 +178,10 @@ public class GameManager : Singleton<GameManager>
                         if (blockCount >= 2 && preBlock.Number + 1 == currentBlock.Number)
                         {
                             currentBlock.Anim.Play("MergeBlock");
+                            if (DataManager.Instance.dataDynamic.soundStatus == true)
+                            {
+                                SoundManager.Instance.sounds[blockCount % 7].source.Play();
+                            }
                             blockCount++;
                             line.LineRenderer.SetPosition(1, currentBlock.transform.position);
                             line = Instantiate(lineController, lineParent);
@@ -198,6 +209,10 @@ public class GameManager : Singleton<GameManager>
                         lineList.RemoveAt(lineList.Count - 1);
                         lineList.RemoveAt(lineList.Count - 1);
                         blockCount--;
+                        if (DataManager.Instance.dataDynamic.soundStatus == true)
+                        {
+                            SoundManager.Instance.sounds[blockCount % 7].source.Play();
+                        }
                         line = Instantiate(lineController, lineParent);
                         lineList.Add(line);
                         line.LineRenderer.positionCount = 1;
@@ -223,6 +238,10 @@ public class GameManager : Singleton<GameManager>
                 listDeleteBlock[blockCount - 1].IsDrag = false;
                 if (blockCount >= 2)
                 {
+                    if (DataManager.Instance.dataDynamic.soundStatus == true)
+                    {
+                        SoundManager.Instance.sounds[7].source.Play();
+                    }
                     endBlockColor = listDeleteBlock[blockCount - 1].GetComponent<SpriteRenderer>().material.color;
                     endBlock = listDeleteBlock[blockCount - 1];
                     endBlock.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 10;
