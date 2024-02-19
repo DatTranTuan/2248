@@ -36,20 +36,29 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Button backShopBtn;
     [SerializeField] private Button themeBtn;
     [SerializeField] private Button backThemeBtn;
+    [SerializeField] private Button buyMoreGemBtninGame;
+    [SerializeField] private Button buyMoreGemBtninShop;
+    [SerializeField] private Button buyMoreGemBtninThemShop;
+    [SerializeField] private Button buyMoreGemBtninHome;
 
     [SerializeField] private TextMeshProUGUI totalScoreText;
     [SerializeField] private TextMeshProUGUI curentHighScoreTextInPlay;
     [SerializeField] private TextMeshProUGUI curentHighScoreTextInHome;
     [SerializeField] private TextMeshProUGUI currentDynamonTextInPlay;
+    [SerializeField] private TextMeshProUGUI currentDynamonTextInShop;
+    [SerializeField] private TextMeshProUGUI currentDynamonTextInThemeShop;
     [SerializeField] private TextMeshProUGUI currentDynamonTextInHome;
 
     [SerializeField] private TextMeshProUGUI outMoneyTMP;
 
     public GameObject GamePlay { get => gamePlay; set => gamePlay = value; }
     public GameObject TutorialCanvas { get => tutorialCanvas; set => tutorialCanvas = value; }
+    public GameObject HomeCanvas { get => homeCanvas; set => homeCanvas = value; }
 
     private void Start()
     {
+        GameManager.Instance.TotalScore = 0;
+        UpdateTotalScore();
         GamePlay.SetActive(false);
         UpdateScoreDyamon();
         UpdateHighBlock();
@@ -67,8 +76,13 @@ public class UIManager : Singleton<UIManager>
         restartBtn.onClick.AddListener(OnClickRestartBtn);
         swapBtn.onClick.AddListener(OnClickSwapBtn);
         hammerBtn.onClick.AddListener(OnClickHammerBtn);
+        buyMoreGemBtninGame.onClick.AddListener(OnClickShopBtn);
+        buyMoreGemBtninHome.onClick.AddListener(OnClickShopBtn);
+        buyMoreGemBtninShop.onClick.AddListener(OnClickShopBtn);
+        buyMoreGemBtninThemShop.onClick.AddListener(OnClickShopBtn);
         Time.timeScale = 0f;
     }
+
     public void TurnOnBottonButtons()
     {
         swapCanvas.SetActive(false);
@@ -132,6 +146,7 @@ public class UIManager : Singleton<UIManager>
         curentHighScoreTextInHome.text = DataManager.Instance.dataDynamic.currentHighScore.ToString();
         currentDynamonTextInPlay.text = DataManager.Instance.dataDynamic.currentDynament.ToString();
         currentDynamonTextInHome.text = DataManager.Instance.dataDynamic.currentDynament.ToString();
+        currentDynamonTextInThemeShop.text = DataManager.Instance.dataDynamic.currentDynament.ToString();
         ShopManager.Instance.DiamondShopText.text = DataManager.Instance.dataDynamic.currentDynament.ToString();
     }
     public void UpdateTotalScore()
@@ -145,7 +160,7 @@ public class UIManager : Singleton<UIManager>
     public void OnClickPlayBtn()
     {
         playCanvas.SetActive(true);
-        homeCanvas.SetActive(false);
+        HomeCanvas.SetActive(false);
         if (DataManager.Instance.dataDynamic.firstTimePlaying == true)
         {
             TutorialCanvas.SetActive(true);
@@ -160,64 +175,69 @@ public class UIManager : Singleton<UIManager>
 
     public void OnClickSettingBtn()
     {
-        homeCanvas.SetActive(false);
         settingCanvas.SetActive(true);
     }
 
     public void OnClickBackSetting()
     {
-        homeCanvas.SetActive(true);
         settingCanvas.SetActive(false);
     }
 
     public void OnClickShopBtn()
     {
-        homeCanvas.SetActive(false);
+        if (GamePlay.activeInHierarchy) gamePlay.SetActive(false);
         shopCanvas.SetActive(true);
     }
 
     public void OnClickBackShopBtn()
     {
-        homeCanvas.SetActive(true);
         shopCanvas.SetActive(false);
+        if (playCanvas.activeInHierarchy) gamePlay.SetActive(true);
     }
 
     public void OnClickThemeBtn()
     {
-        homeCanvas.SetActive(false);
+        HomeCanvas.SetActive(false);
         themeCanvas.SetActive(true);
     }
 
     public void OnClickBackThemeBtn()
     {
-        homeCanvas.SetActive(true);
+        HomeCanvas.SetActive(true);
         themeCanvas.SetActive(false);
     }
 
     public void OnClickPauseBtn()
     {
         GamePlay.SetActive(false);
-        playCanvas.SetActive(false);
         pauseCanvas.SetActive(true);
     }
 
     public void OnClickHomeBtn()
     {
-        homeCanvas.SetActive(true);
+        HomeCanvas.SetActive(true);
         pauseCanvas.SetActive(false);
+        playCanvas.SetActive(false);
         UpdateHighBlock();
+        GameManager.Instance.TotalScore = 0;
+        UpdateTotalScore();
     }
 
     public void OnClickResumeBtn()
     {
         GamePlay.SetActive(true);
-        playCanvas.SetActive(true);
         pauseCanvas.SetActive(false);
     }
 
     public void OnClickRestartBtn()
     {
         DataManager.Instance.SetPlayerpref();
-        SceneManager.LoadScene("SampleScene");
+        GameManager.Instance.OnDeath();
+        GameManager.Instance.Init();
+        GamePlay.SetActive(true);
+        playCanvas.SetActive(true);
+        pauseCanvas.SetActive(false);
+        GameManager.Instance.TotalScore = 0;
+        UpdateTotalScore();
     }
 }

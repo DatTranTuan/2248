@@ -11,8 +11,8 @@ public class DataManager : Singleton<DataManager>
         GetPlayerpref();
         if (dataDynamic == null)
         {
-
             dataDynamic = new DataDynamic();
+            dataDynamic.soundStatus = true;
             dataDynamic.firstTimePlaying = true;
             dataDynamic.currentDynament = 0;
             dataDynamic.currentHighScore = 0;
@@ -60,6 +60,7 @@ public class DataDynamic
     public int currentHighBlock;
     public int currentTheme;
     public BuyingStatus[] buyingSatus;
+    public bool soundStatus;
 }
 public enum BuyingStatus
 {

@@ -6,5 +6,6 @@ using UnityEngine;
 [Serializable]
 public class ThemeItemSO
 {
+    public string themeName;
     public Sprite themeSprite;
 }

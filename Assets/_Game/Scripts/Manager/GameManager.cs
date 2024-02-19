@@ -42,6 +42,7 @@ public class GameManager : Singleton<GameManager>
     private IState currentState;
 
     private int totalScore;
+    private Block blockTmp;
 
     public int TotalScore { get => totalScore; set => totalScore = value; }
     private void Awake()
@@ -82,16 +83,26 @@ public class GameManager : Singleton<GameManager>
         {
             for (int j = 0; j < 8; j++)
             {
-                Block blockTmp = Instantiate(block, blockParent);
+                blockTmp = Instantiate(block, blockParent);
                 blockTmp.IsDrag = false;
                 blockTmp.transform.position = new Vector2(i, j);
                 int numberType = Random.Range(minNum, maxNum);
                 blockTmp.NumberText.text = numberSO.listNumber[numberType].number.ToString();
                 blockTmp.GetComponent<SpriteRenderer>().material.color = numberSO.listNumber[numberType].color;
                 blockTmp.Number = numberType;
+
             }
         }
     }
+
+    public void OnDeath()
+    {
+        foreach (Transform child in blockParent)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
     public void ChangeState(IState newState)
     {
         if (currentState != null)
@@ -111,7 +122,10 @@ public class GameManager : Singleton<GameManager>
         mousePosition.z = 0;
         if (hit.collider != null && Input.GetMouseButtonDown(0))
         {
-
+            if (DataManager.Instance.dataDynamic.soundStatus == true)
+            {
+                SoundManager.Instance.sounds[blockCount % 7].source.Play();
+            }
             blockCount++;
             line = Instantiate(lineController, lineParent);
             lineList.Add(line);
@@ -142,6 +156,10 @@ public class GameManager : Singleton<GameManager>
                     if (preBlock.Number == hit.collider.GetComponent<Block>().Number)
                     {
                         currentBlock.Anim.Play("MergeBlock");
+                        if (DataManager.Instance.dataDynamic.soundStatus == true)
+                        {
+                            SoundManager.Instance.sounds[blockCount % 7].source.Play();
+                        }
                         blockCount++;
                         line.LineRenderer.SetPosition(1, currentBlock.transform.position);
                         line = Instantiate(lineController, lineParent);
@@ -160,6 +178,10 @@ public class GameManager : Singleton<GameManager>
                         if (blockCount >= 2 && preBlock.Number + 1 == currentBlock.Number)
                         {
                             currentBlock.Anim.Play("MergeBlock");
+                            if (DataManager.Instance.dataDynamic.soundStatus == true)
+                            {
+                                SoundManager.Instance.sounds[blockCount % 7].source.Play();
+                            }
                             blockCount++;
                             line.LineRenderer.SetPosition(1, currentBlock.transform.position);
                             line = Instantiate(lineController, lineParent);
@@ -180,13 +202,17 @@ public class GameManager : Singleton<GameManager>
                     if (lineList.Count >= 2 && currentBlock.IsDrag == true && Mathf.Abs(line.LineRenderer.GetPosition(0).x - hit.transform.position.x) < 1.9
                         && Mathf.Abs(line.LineRenderer.GetPosition(0).y - hit.transform.position.y) < 1.9 && Vector3.Distance(hit.transform.position, lineList[lineList.Count - 2].LineRenderer.GetPosition(0)) < 0.1)
                     {
-                        dem -= numberSO.listNumber[listDeleteBlock[ listDeleteBlock.Count - 1].Number].number;
+                        dem -= numberSO.listNumber[listDeleteBlock[listDeleteBlock.Count - 1].Number].number;
                         Destroy(lineList[lineList.Count - 1].gameObject);
                         Destroy(lineList[lineList.Count - 2].gameObject);
                         listDeleteBlock.RemoveAt(listDeleteBlock.Count - 1);
                         lineList.RemoveAt(lineList.Count - 1);
                         lineList.RemoveAt(lineList.Count - 1);
                         blockCount--;
+                        if (DataManager.Instance.dataDynamic.soundStatus == true)
+                        {
+                            SoundManager.Instance.sounds[blockCount % 7].source.Play();
+                        }
                         line = Instantiate(lineController, lineParent);
                         lineList.Add(line);
                         line.LineRenderer.positionCount = 1;
@@ -209,15 +235,19 @@ public class GameManager : Singleton<GameManager>
         {
             if (blockCount > 0)
             {
-                listDeleteBlock[blockCount -1].IsDrag = false;
+                listDeleteBlock[blockCount - 1].IsDrag = false;
                 if (blockCount >= 2)
-                {                    
+                {
+                    if (DataManager.Instance.dataDynamic.soundStatus == true)
+                    {
+                        SoundManager.Instance.sounds[7].source.Play();
+                    }
                     endBlockColor = listDeleteBlock[blockCount - 1].GetComponent<SpriteRenderer>().material.color;
-                    endBlock= listDeleteBlock[blockCount - 1];
+                    endBlock = listDeleteBlock[blockCount - 1];
                     endBlock.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 10;
                     endBlock.gameObject.GetComponentInChildren<Canvas>().sortingOrder = 11;
-                    listDeleteBlock[blockCount -1].Number= ScoreCaculate();
-                    if(listDeleteBlock[blockCount - 1].Number> DataManager.Instance.dataDynamic.currentHighBlock)
+                    listDeleteBlock[blockCount - 1].Number = ScoreCaculate();
+                    if (listDeleteBlock[blockCount - 1].Number > DataManager.Instance.dataDynamic.currentHighBlock)
                     {
                         DataManager.Instance.dataDynamic.currentHighBlock = listDeleteBlock[blockCount - 1].Number;
                     }
@@ -232,7 +262,7 @@ public class GameManager : Singleton<GameManager>
                     Destroy(lineList[i].gameObject);
                     lineList.RemoveAt(i);
                     if (i != blockCount - 1)
-                    {   
+                    {
                         AlignToDirection t = Instantiate(mergeParticle, canvasForParticleImage);
                         t.startPoint.position = listDeleteBlock[i].transform.position;
                         t.EndPoint.position = endpos;
@@ -240,41 +270,41 @@ public class GameManager : Singleton<GameManager>
                         listDeleteBlock.RemoveAt(i);
                     }
                 }
-                if(blockPreviewInstance!= null) Destroy(blockPreviewInstance.gameObject);
+                if (blockPreviewInstance != null) Destroy(blockPreviewInstance.gameObject);
             }
             listDeleteBlock.Clear();
             lineList.Clear();
 
-            if(blockCount>= 2) ChangeState(new MergeState());
+            if (blockCount >= 2) ChangeState(new MergeState());
             blockCount = 0;
         }
     }
     private void PopUpIncScore(int score, int count, Transform currentBlock)
     {
-        if(count>=6)
+        if (count >= 6)
         {
-            
-            GameObject x = Instantiate(popUpCombo,canvasForCombo);
-            Vector3 offset =new Vector2(0, 0) ;
+
+            GameObject x = Instantiate(popUpCombo, canvasForCombo);
+            Vector3 offset = new Vector2(0, 0);
             if (currentBlock.transform.position.x <= 1) offset = new Vector2(1, 0);
             if (currentBlock.transform.position.x >= 4) offset = new Vector2(-1, 0);
-            x.transform.position = currentBlock.position+ offset;
+            x.transform.position = currentBlock.position + offset;
             x.GetComponent<TextMeshProUGUI>().text = "Combo X" + count;
             GameObject y = Instantiate(popUpScore, popUpIncDyamonParent);
-            y.transform.localPosition = new Vector3(60, 87 , 0);
-            y.GetComponent<TextMeshProUGUI>().text = "+1" ;
+            y.transform.position = popUpIncDyamonParent.position + new Vector3(1.2f, 0, 0);
+            y.GetComponent<TextMeshProUGUI>().text = "+1";
             DataManager.Instance.dataDynamic.currentDynament++;
             UIManager.Instance.UpdateScoreDyamon();
         }
-        GameObject t= Instantiate(popUpScore, popUpScoreParent);
-        t.transform.localPosition = new Vector3(125, 35, 0);
+        GameObject t = Instantiate(popUpScore, popUpScoreParent);
+        t.transform.position = popUpScoreParent.position + new Vector3(1, 0, 0);
         t.GetComponent<TextMeshProUGUI>().text = "+" + score.ToString();
     }
     private int ScoreCaculate()
     {
         int ScoreTMP = 4;
         int demtmp = 1;
-        while(ScoreTMP < dem)
+        while (ScoreTMP < dem)
         {
             ScoreTMP *= 2;
             demtmp++;
